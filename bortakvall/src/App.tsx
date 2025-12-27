@@ -1,13 +1,21 @@
 import "./assets/scss/App.scss";
 import Navigation from "./components/Navigation";
+import { CartProvider } from "./context/CartProvider";
+import ProductListPage from "./pages/ProductListPage";
 
 function App() {
 
   return (
     <>
-      <Navigation />
+      <CartProvider>
+        <Navigation />
+        <main className="style__section hacker-news__main">
+          <ProductListPage />
+        </main>
+      </CartProvider>
     </>
   )
 }
 
 export default App
+ 
