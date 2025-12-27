@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as CandyAPI from "../services/CandyAPI";
 import type { ProductResponse } from "../services/CandyAPI.types";
+import { Cart } from "../components/Cart";
 
 const ProductPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +39,7 @@ const ProductPage = () => {
 				<a href={`https://www.bortakvall.se${product.data.images.large}`} target="_blank"><img src={`https://www.bortakvall.se${product.data.images.thumbnail}`} title={product.data.name} /></a>
 			</>
 			)}
+			<Cart />
 		</>
 	)
 }
