@@ -31,10 +31,10 @@ const ProductListPage = () => {
 							<div className="style__price">{product.price} kr</div>
 							<img src={`https://www.bortakvall.se${product.images.thumbnail}`} title={product.name} />
 							<div className="style__product-item">
-								{(product.stock_status === "outofstock") && (`Godiset "${product.name}" är slut`)}
+								{(product.stock_status === "outofstock") && (`Godiset "${product.name}" är slutsålt`)}
 								{(product.stock_status === "instock") && (
 									<>
-									<a href={`product/${product.id}`}>{product.name}</a>
+									<a href={`product?id=${product.id}`}>{product.name}</a>
 									<div className="style__update">
 									<button aria-label={`Lägg till en ${product.name}`} onClick={() => updateQuantity(product.id, getCartItemQuantity(product.id) - 1)}>
 										-

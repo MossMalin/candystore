@@ -6,7 +6,7 @@ export const Cart = () => {
 
     return (
         <div className="style__cart">
-            <a title="Gå till varukorgen" href="/">
+            <a title="Gå till varukorgen" href="/checkout">
 			    <img src={cart} alt="Kundvagnen" />
                 <div className="style__cart-items">{totalItems}</div>
 			</a>
