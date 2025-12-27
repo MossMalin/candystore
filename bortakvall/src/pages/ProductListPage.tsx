@@ -9,20 +9,18 @@ const ProductListPage = () => {
 		queryFn: CandyAPI.getProducts,
 	})
 
-	const { cart, addToCart, totalItems, totalCost, updateQuantity } = useCart();
+	const { cart, addToCart, updateQuantity } = useCart();
 
 	const products: Product[] = Array.isArray(getProducts?.data) ? getProducts.data : [];
 
 	function getCartItemQuantity(productId: number): number {
 		const cartItem = cart.find(item => item.id === productId);
-		console.log(cartItem)
 		return cartItem ? cartItem.quantity : 0;
 	}
 
 	return (
 		<>
-			<h1>Products</h1>
-			<p>{totalCost} {totalItems}</p>
+			<h1>Godis</h1>
 
 			{products && (
 				<ul className="style__product-list">
@@ -30,23 +28,25 @@ const ProductListPage = () => {
 						<li
 							key={product.id}
 						>
+							<div className="style__price">{product.price} kr</div>
 							<img src={`https://www.bortakvall.se${product.images.thumbnail}`} title={product.name} />
-							<a href={`product/${product.id}`}>{product.name}</a>
-							{(product.stock_status === "outofstock") && ("Slutsåld")}
-							{(product.stock_status === "instock") && (
-								<>
-								<div className="style__price">{product.price} kr</div>
-								<button onClick={() => updateQuantity(product.id, getCartItemQuantity(product.id) - 1)}>
-									-
-								</button>
-								{getCartItemQuantity(product.id)} av {product.stock_quantity}
-								{product.stock_quantity > getCartItemQuantity(product.id) && (
-								<button onClick={() => addToCart(product)}>
-									+
-								</button>
+							<div className="style__product-item">
+								{(product.stock_status === "outofstock") && (`Godiset "${product.name}" är slut`)}
+								{(product.stock_status === "instock") && (
+									<>
+									<a href={`product/${product.id}`}>{product.name}</a>
+									<div className="style__update">
+									<button aria-label={`Lägg till en ${product.name}`} onClick={() => updateQuantity(product.id, getCartItemQuantity(product.id) - 1)}>
+										-
+									</button>
+									{getCartItemQuantity(product.id)} av {product.stock_quantity}
+									<button aria-label={`Ta bort en ${product.name}`} onClick={() => addToCart(product)} disabled={product.stock_quantity <= getCartItemQuantity(product.id)}>
+										+
+									</button>
+									</div>
+									</>
 								)}
-								</>
-							)}
+							</div>
 						</li>
 					))}
 				</ul>

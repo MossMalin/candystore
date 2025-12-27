@@ -9,7 +9,8 @@
   padding: units.px-to-rem(20);
   font-family: arial, sans-serif;
   font-size: units.px-to-rem(16);
-  background-color: colors.$navy-800;
+  color: colors.$color-text-main;
+  background-color: colors.$color-background;
 
   @include breakpoints.large {
     font-size: units.px-to-rem(18);
@@ -25,14 +26,14 @@
     }
 
     &:hover {
-      filter: drop-shadow(0 0 2em colors.$teal-1100);
+      filter: drop-shadow(0 0 2em colors.$color-bubblegum-rose);
     }
   }
 
   &__section {
     max-width: units.px-to-rem(700);
     margin: 0 auto;
-    background-color: colors.$navy-200;
+    background-color: colors.$color-surface;
     border-radius: units.px-to-rem(10);
     padding: units.px-to-rem(20);
   }
@@ -42,7 +43,7 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: units.px-to-rem(20);
-    color: colors.$navy-1100;
+    color: colors.$color-text-main;
 
     h1 {
       font-weight: 700;
@@ -71,8 +72,9 @@
     }
     
     & li {
+      position: relative;
       border-radius: units.px-to-rem(10);
-      background: #fff;
+      background-color: #fff;
       overflow: hidden;
 
       @include breakpoints.small {
@@ -81,23 +83,48 @@
     }
 
     & a {
-      display: block;
+      color: colors.$color-text-main;
+    }
+  }
+
+  &__product-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: units.px-to-rem(10);
       padding: units.px-to-rem(10);
-      color: colors.$teal-1100;
-    }
+  
+      @include breakpoints.small {
+        min-height: units.px-to-rem(77);
+      }
   }
 
-  &__search {
-    margin-bottom: units.px-to-rem(10);
+  &__price {
+      position: absolute;
+      padding: units.px-to-rem(10);
+      margin: units.px-to-rem(10);
+      border-radius: units.px-to-rem(10);
+      background-color: colors.$color-background;
+      font-weight: 700;
   }
 
-  &__sortby {
-    margin-bottom: units.px-to-rem(20);
-
-    .hacker-news__checkbox {
-      margin-right: units.px-to-rem(8);
-    }
+  &__update {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
+
+  // &__search {
+  //   margin-bottom: units.px-to-rem(10);
+  // }
+
+  // &__sortby {
+  //   margin-bottom: units.px-to-rem(20);
+
+  //   .hacker-news__checkbox {
+  //     margin-right: units.px-to-rem(8);
+  //   }
+  // }
 
   & nav {
     margin-top: units.px-to-rem(20);
@@ -107,12 +134,42 @@
     justify-content: center;
   }
 
-  &__toggle {
-    margin-top: units.px-to-rem(10);
-    display: none;
+  // &__toggle {
+  //   margin-top: units.px-to-rem(10);
+  //   display: none;
 
-    &--visible {
+  //   &--visible {
+  //     display: block;
+  //   }
+  // }
+
+  &__cart {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    & img {
+      height: units.px-to-rem(150);
+    }
+
+    & a {
       display: block;
+      position: relative;
+    }
+
+    &-items {
+      position: absolute;
+      top: units.px-to-rem(60);
+      left: units.px-to-rem(35);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: units.px-to-rem(30);
+      height: units.px-to-rem(30);
+      border: 1px solid colors.$color-border;
+      border-radius: units.px-to-rem(4);
+      background-color: colors.$color-surface;
+      font-weight: 700;
     }
   }
 
@@ -120,39 +177,43 @@
   &__input {
     width: 100%;
     padding: units.px-to-rem(8);
-    border: 1px solid colors.$navy-1100;
+    border: 1px solid colors.$color-primary;
     border-radius: units.px-to-rem(4);
     font-size: units.px-to-rem(16);
 
     &:focus-visible {
-      outline: 2px solid colors.$teal-1100;
+      outline: 2px solid colors.$color-primary;
       outline-offset: 2px;
     }
 
     &--error {
       &:focus-visible {
-        outline-color: colors.$burgundy-1100;
+        outline-color: colors.$color-danger;
       }
     }
   }
 
-  &__button {
-    padding: units.px-to-rem(8) units.px-to-rem(12);
-    border: none;
+  & button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: units.px-to-rem(30);
+    height: units.px-to-rem(30);
+    border: 1px solid colors.$color-border;
     border-radius: units.px-to-rem(4);
-    background-color: colors.$teal-1100;
-    color: colors.$navy-50;
-    font-size: units.px-to-rem(16);
+    background-color: colors.$color-surface;
+    font-size: units.px-to-rem(25);
     cursor: pointer;
 
     &:hover {
-      background-color: colors.$navy-1100;
+      background-color: colors.$gradient-accent;
     }
   }
 
   &__errormessage {
     display: none;
-    color: colors.$burgundy-1100;
+    color: colors.$color-danger;
     margin-bottom: units.px-to-rem(10);
 
     &--visible {

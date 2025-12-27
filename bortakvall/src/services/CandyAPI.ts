@@ -23,7 +23,6 @@ const instance = axios.create({
  */
 export const get = async <T>(endpoint: string) => {
   const response = await instance.get<T>(endpoint);
-  console.log(response.data);
   return response.data;
 };
 
