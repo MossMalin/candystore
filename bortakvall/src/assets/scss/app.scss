@@ -3,6 +3,10 @@
 @use 'breakpoints';
 @use 'colors';
 @use 'units';
+@use './Components/cart';
+@use './Components/navigation';
+@use './Pages/checkout';
+@use './Pages/product-list';
 
 .style {
   margin: 0;
@@ -12,25 +16,15 @@
   background-color: colors.$color-background;
 
   @include breakpoints.small {
-  padding: units.px-to-rem(20);
+    padding: units.px-to-rem(20);
   }
 
   @include breakpoints.large {
     font-size: units.px-to-rem(18);
   }
 
-  &__logo {
-    height: units.px-to-rem(130);
-    will-change: filter;
-    transition: filter 300ms;
-
-    @include breakpoints.medium {
-     height: units.px-to-rem(160);
-    }
-
-    &:hover {
-      filter: drop-shadow(0 0 2em colors.$color-bubblegum-rose);
-    }
+  img {
+    width: 100%;
   }
 
   &__section {
@@ -59,167 +53,29 @@
     }
   }
 
-  
-  &__product-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: units.px-to-rem(10);
-    margin: 0;
-    padding: 0;
-
-
-    & img {
-      width: 100%;
-    }
-    
-    & li {
-      position: relative;
-      border-radius: units.px-to-rem(10);
-      background-color: #fff;
-      overflow: hidden;
-
-      @include breakpoints.small {
-        width: units.px-to-rem(160);
-      }
-    }
-
-    & a {
-      color: colors.$color-text-main;
-    }
-  }
-
-  &__product-item {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: units.px-to-rem(10);
-      padding: units.px-to-rem(10);
-  
-      @include breakpoints.small {
-        min-height: units.px-to-rem(77);
-      }
-  }
-
-  &__price {
-      position: absolute;
-      padding: units.px-to-rem(10);
-      margin: units.px-to-rem(10);
-      border-radius: units.px-to-rem(10);
-      background-color: colors.$color-background;
-      font-weight: 700;
-  }
-
-  &__update {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  & nav {
-    margin-top: units.px-to-rem(20);
-    font-size: units.px-to-rem(19);
-
-    display: flex;
-    justify-content: center;
-  }
-
-  &__cart {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-
-    & img {
-      height: units.px-to-rem(150);
-    }
-
-    & a {
-      display: block;
-      position: relative;
-    }
-
-    &-items {
-      position: absolute;
-      top: units.px-to-rem(60);
-      left: units.px-to-rem(35);
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      width: units.px-to-rem(30);
-      height: units.px-to-rem(30);
-      border: 1px solid colors.$color-border;
-      border-radius: units.px-to-rem(4);
-      background-color: colors.$color-surface;
-      font-weight: 700;
-    }
-  }
-
-  &__table {
-      width: 100%;
-      border-radius: units.px-to-rem(10);
-      background-color: #fff;
-      padding: units.px-to-rem(5);
-
-      & th {
-        text-align: left;
-      }
-
-      & th, td {
-
-        &:first-child {
-          width: units.px-to-rem(35);
-        }
-
-        &:last-child {
-          text-align: right;
-        }
-      }
-
-      & tr:last-child {
-        font-weight: 700;
-      }
-  }
-
-
-  &__input {
-    width: 100%;
-    padding: units.px-to-rem(8);
-    border: 1px solid colors.$color-primary;
-    border-radius: units.px-to-rem(4);
-    font-size: units.px-to-rem(16);
-
-    &:focus-visible {
-      outline: 2px solid colors.$color-primary;
-      outline-offset: 2px;
-    }
-
-    &--error {
-      &:focus-visible {
-        outline-color: colors.$color-danger;
-      }
-    }
-  }
 
   & button {
     all: unset;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: units.px-to-rem(30);
-    height: units.px-to-rem(30);
+    padding: units.px-to-rem(5);
     border: 1px solid colors.$color-border;
     border-radius: units.px-to-rem(4);
     background-color: colors.$color-surface;
     cursor: pointer;
 
-    &:hover {
-      background-color: colors.$gradient-accent;
+    &:hover:not(:disabled) {
+      background-color: colors.$color-marshmallow-white;
     }
 
     &:focus-visible {
       outline: 2px solid colors.$color-primary;
       outline-offset: 2px;
+    }
+
+    &:disabled {
+      cursor: default;
     }
   }
 

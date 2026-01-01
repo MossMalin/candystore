@@ -4,7 +4,6 @@ import type { ProductResponse } from "../services/CandyAPI.types";
 import { Cart } from "../components/Cart";
 
 const ProductPage = () => {
-	const [isLoading, setIsLoading] = useState(true);
 	const [product, setProduct] = useState<ProductResponse>();
 
 	useEffect(() => {
@@ -16,7 +15,6 @@ const ProductPage = () => {
 				// TODO: fånga 404
 				const loadedData = await CandyAPI.getProduct(Number(id));
 				setProduct(loadedData);
-				setIsLoading(false);
 			}
 			catch(e) {
 				console.error(e);
@@ -28,15 +26,14 @@ const ProductPage = () => {
     
 	return (
 		<>
-
-			{ isLoading }
-
+			<button>&#171; Tillbaka</button>
 			{product && (
 			<>
 				<h1>{product.data.name}</h1>
 				<p>Id: {product.data.id}</p>
 				<div dangerouslySetInnerHTML={{ __html: product.data.description }} />
-				<a href={`https://www.bortakvall.se${product.data.images.large}`} target="_blank"><img src={`https://www.bortakvall.se${product.data.images.thumbnail}`} title={product.data.name} /></a>
+				<p><b>Pris: {product.data.price} kr/skopa</b></p>
+				<img src={`https://www.bortakvall.se${product.data.images.large}`} title={product.data.name} />
 			</>
 			)}
 			<Cart />

@@ -1,0 +1,30 @@
+@use '../units';
+
+.checkout-page {
+  &__table {
+    width: 100%;
+    border-radius: units.px-to-rem(10);
+    background-color: #fff;
+    padding: units.px-to-rem(5);
+
+    & th {
+      text-align: left;
+    }
+
+    & th,
+    td {
+
+      &:first-child {
+        width: units.px-to-rem(35);
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+
+    & tr:last-child {
+      font-weight: 700;
+    }
+  }
+}

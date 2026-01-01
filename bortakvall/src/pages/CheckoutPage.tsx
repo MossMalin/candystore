@@ -9,10 +9,10 @@ const CheckoutPage = () => {
 			<h1>Varukorgen</h1>
 
 			{cart && (
-				<table className="style__table">
-                    <caption className="style__visuallyhidden">Varukorg</caption>
+				<table className="checkout-page__table">
+                    <caption className="checkout-page__visuallyhidden">Varukorg</caption>
                     <tr>
-                        <th><div className="style__visuallyhidden">Ta bort</div></th>
+                        <th><div className="checkout-page__visuallyhidden">Ta bort</div></th>
                         <th>Produktnamn</th>
                         <th>Antal</th>
                         <th>Summa</th>

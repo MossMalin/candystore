@@ -2,9 +2,9 @@ import notFound from '../assets/images/404.png'
 const NotFound = () => {
 	return (
 		<>
-		<img src={notFound} width="100%" />
-			<h1>Sorry, that page could not be found 😔</h1>
-
+			<h1>Sidan kunde inte hittas</h1>
+			<p><a href="/">Tillbaka till startsidan</a></p>
+			<img src={notFound} width="100%" />
 		</>
 	)
 }

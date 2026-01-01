@@ -1,0 +1,38 @@
+@use '../colors';
+@use '../units';
+
+.cart {
+  &__container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    & img {
+      height: units.px-to-rem(150);
+    }
+
+    & a {
+      display: block;
+      position: relative;
+
+      &:hover {
+        filter: drop-shadow(0 0 2em colors.$color-bubblegum-rose);
+      }
+    }
+  }
+
+  &__items {
+    position: absolute;
+    top: units.px-to-rem(60);
+    left: units.px-to-rem(35);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: units.px-to-rem(30);
+    height: units.px-to-rem(30);
+    border: 1px solid colors.$color-border;
+    border-radius: units.px-to-rem(4);
+    background-color: colors.$color-surface;
+    font-weight: 700;
+  }
+}

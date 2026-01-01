@@ -5,10 +5,10 @@ export const Cart = () => {
 	const { totalItems } = useCart();
 
     return (
-        <div className="style__cart">
+        <div className="cart__container">
             <a title="Gå till varukorgen" href="/checkout">
 			    <img src={cart} alt="Kundvagnen" />
-                <div className="style__cart-items">{totalItems}</div>
+                <div className="cart__items">{totalItems}</div>
 			</a>
         </div>
     )

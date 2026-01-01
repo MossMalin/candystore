@@ -24,27 +24,27 @@ const ProductListPage = () => {
 			<h1>Godis</h1>
 
 			{products && (
-				<ul className="style__product-list">
+				<ul className="product-list__container">
 					{products.map(product => (
 						<li
 							key={product.id}
 						>
-							<div className="style__price">{product.price} kr</div>
+							<div className="product-list__price">{product.price} kr</div>
 							<img src={`https://www.bortakvall.se${product.images.thumbnail}`} title={product.name} />
-							<div className="style__product-item">
+							<div className="product-list__item">
 								{(product.stock_status === "outofstock") && (`Godiset "${product.name}" är slutsålt`)}
 								{(product.stock_status === "instock") && (
 									<>
-									<a href={`product?id=${product.id}`}>{product.name}</a>
-									<div className="style__update">
-									<button aria-label={`Lägg till en ${product.name}`} onClick={() => updateQuantity(product.id, getCartItemQuantity(product.id) - 1)}>
-										➖
-									</button>
-									{getCartItemQuantity(product.id)} av {product.stock_quantity}
-									<button aria-label={`Ta bort en ${product.name}`} onClick={() => addToCart(product)} disabled={product.stock_quantity <= getCartItemQuantity(product.id)}>
-										➕
-									</button>
-									</div>
+										<div className="product-list__update">
+											<button aria-label={`Lägg till en ${product.name}`} onClick={() => updateQuantity(product.id, getCartItemQuantity(product.id) - 1)}>
+												➖
+											</button>
+											{getCartItemQuantity(product.id)} av {product.stock_quantity}
+											<button aria-label={`Ta bort en ${product.name}`} onClick={() => addToCart(product)} disabled={product.stock_quantity <= getCartItemQuantity(product.id)}>
+												➕
+											</button>
+										</div>
+										<a href={`product?id=${product.id}`}>{product.name}</a>
 									</>
 								)}
 							</div>

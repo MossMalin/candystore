@@ -1,0 +1,80 @@
+@use '../breakpoints';
+@use '../colors';
+@use '../units';
+
+.product-list {
+    &__container {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: units.px-to-rem(10);
+        margin: 0;
+        padding: 0;
+
+        & li {
+            position: relative;
+            border-radius: units.px-to-rem(10);
+            background-color: #fff;
+            overflow: hidden;
+
+            @include breakpoints.small {
+                width: units.px-to-rem(160);
+            }
+        }
+
+        & a {
+            color: colors.$color-text-main;
+        }
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: units.px-to-rem(10);
+        padding: units.px-to-rem(10);
+    }
+
+    &__price {
+        position: absolute;
+        padding: units.px-to-rem(10);
+        margin: units.px-to-rem(10);
+        border-radius: units.px-to-rem(10);
+        background-color: colors.$color-background;
+        font-weight: 700;
+    }
+
+    &__update {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    & nav {
+        margin-top: units.px-to-rem(20);
+        font-size: units.px-to-rem(19);
+
+        display: flex;
+        justify-content: center;
+    }
+
+    &__input {
+        width: 100%;
+        padding: units.px-to-rem(8);
+        border: 1px solid colors.$color-primary;
+        border-radius: units.px-to-rem(4);
+        font-size: units.px-to-rem(16);
+
+        &:focus-visible {
+            outline: 2px solid colors.$color-primary;
+            outline-offset: 2px;
+        }
+
+        &--error {
+            &:focus-visible {
+                outline-color: colors.$color-danger;
+            }
+        }
+    }
+}

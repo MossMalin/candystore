@@ -6,7 +6,7 @@ const Navigation = () => {
 	return (
 		<header>
 			<a href="/">
-			<img src={logoTransparent} className="style__logo" alt="Bortakväll logo" />
+			<img src={logoTransparent} className="navigation__logo" alt="Bortakväll logo" />
 			</a>
 		</header>
 	);

@@ -1,0 +1,19 @@
+@use '../breakpoints';
+@use '../colors';
+@use '../units';
+
+.navigation {
+    &__logo {
+        height: units.px-to-rem(130);
+        will-change: filter;
+        transition: filter 300ms;
+
+        @include breakpoints.medium {
+            height: units.px-to-rem(160);
+        }
+
+        &:hover {
+            filter: drop-shadow(0 0 2em colors.$color-bubblegum-rose);
+        }
+    }
+}
