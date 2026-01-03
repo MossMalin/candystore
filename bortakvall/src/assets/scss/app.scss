@@ -23,6 +23,10 @@
     font-size: units.px-to-rem(18);
   }
 
+  & a {
+    color: colors.$color-text-main;
+  }
+
   img {
     width: 100%;
   }
@@ -56,17 +60,15 @@
 
   & button {
     all: unset;
-    display: flex;
     align-items: center;
-    justify-content: space-around;
     padding: units.px-to-rem(5);
     border: 1px solid colors.$color-border;
     border-radius: units.px-to-rem(4);
-    background-color: colors.$color-surface;
+    background-color: colors.$color-marshmallow-white;
     cursor: pointer;
 
     &:hover:not(:disabled) {
-      background-color: colors.$color-marshmallow-white;
+      background-color: colors.$color-surface;
     }
 
     &:focus-visible {

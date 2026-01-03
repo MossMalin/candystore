@@ -10,9 +10,9 @@ const CheckoutPage = () => {
 
 			{cart && (
 				<table className="checkout-page__table">
-                    <caption className="checkout-page__visuallyhidden">Varukorg</caption>
+                    <caption className="style__visuallyhidden">Varukorg</caption>
                     <tr>
-                        <th><div className="checkout-page__visuallyhidden">Ta bort</div></th>
+                        <th><div className="style__visuallyhidden">Ta bort</div></th>
                         <th>Produktnamn</th>
                         <th>Antal</th>
                         <th>Summa</th>
@@ -21,8 +21,8 @@ const CheckoutPage = () => {
 						<tr
 							key={product.id}
 						>
-                            <td><button onClick={() => removeFromCart(product.id)}>✖️</button></td>
-							<td>{product.name}</td>
+                            <td><button onClick={() => removeFromCart(product.id)} aria-label={`Ta bort ${product.name}`}>✖️</button></td>
+							<td><a href={`/product?id=${product.id}`}>{product.name}</a></td>
 							<td>{product.quantity} st</td>
 							<td>{product.quantity * product.price} kr</td>
 						</tr>

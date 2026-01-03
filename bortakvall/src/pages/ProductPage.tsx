@@ -11,14 +11,15 @@ const ProductPage = () => {
 			try {
 				const url = new URL(window.location.href);
 				const id = url.searchParams.get("id");
-				console.log("Todo fånga 404")
-				// TODO: fånga 404
 				const loadedData = await CandyAPI.getProduct(Number(id));
+				if (loadedData.status === "error") {
+				    throw new Error("No product found");					console.log()
+				}
 				setProduct(loadedData);
 			}
 			catch(e) {
 				console.error(e);
-				Response.redirect("/error");
+				window.location.href = "/error";
 			}
 		}
 		fetchData();
@@ -26,7 +27,7 @@ const ProductPage = () => {
     
 	return (
 		<>
-			<button>&#171; Tillbaka</button>
+			<button onClick={() => history.back()}>&#171; Tillbaka</button>
 			{product && (
 			<>
 				<h1>{product.data.name}</h1>

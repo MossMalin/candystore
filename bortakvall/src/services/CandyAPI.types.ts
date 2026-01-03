@@ -13,10 +13,6 @@ export interface Product {
   tags: [Tag];
 }
 
-export type ProductResponse = {
-  data: Product;
-};
-
 export type Products = {
   data: Omit<Product, 'data.description'>;
 };
@@ -29,4 +25,16 @@ export interface Tag {
 
 export type CartItem = Pick<Product, 'id' | 'name' | 'price'> & {
   quantity: number;
+};
+
+interface Response {
+  status: 'success' | 'error';
+}
+
+export type ProductResponse = Response & {
+  data: Product;
+};
+
+export type TagResponse = Response & {
+  data: Tag[];
 };

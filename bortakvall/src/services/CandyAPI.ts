@@ -3,7 +3,12 @@
  */
 
 import axios from 'axios';
-import type { Tag, Products, ProductResponse } from './CandyAPI.types';
+import type {
+  Tag,
+  Products,
+  ProductResponse,
+  TagResponse,
+} from './CandyAPI.types';
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL;
 
@@ -22,7 +27,11 @@ const instance = axios.create({
  * @param endpoint Endpoint to get
  */
 export const get = async <T>(endpoint: string) => {
-  const response = await instance.get<T>(endpoint);
+  const response = await instance.get<T>(endpoint, {
+    validateStatus: function (status: number): boolean {
+      return status < 500;
+    },
+  });
   return response.data;
 };
 
@@ -41,7 +50,7 @@ export const post = async <Response, Payload>(
 };
 
 /**
- * Get products from API using axios 🤘🏻
+ * Get products from API using axios
  */
 export const getProducts = async () => {
   return get<Products>('/products');
@@ -57,14 +66,14 @@ export const getProduct = async (id: number) => {
 };
 
 /**
- * Get products from API using axios 🤘🏻
+ * Get tags from API using axios
  */
 export const getTags = async () => {
-  return get<Tag[]>('/tags');
+  return get<TagResponse>('/tags');
 };
 
 /**
- * Get a single product from the API
+ * Get a single tag from the API
  *
  * @param id
  */
