@@ -3,12 +3,7 @@
  */
 
 import axios from 'axios';
-import type {
-  Tag,
-  Products,
-  ProductResponse,
-  TagResponse,
-} from './CandyAPI.types';
+import type { Products, ProductResponse, TagResponse } from './CandyAPI.types';
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL;
 
@@ -73,10 +68,10 @@ export const getTags = async () => {
 };
 
 /**
- * Get a single tag from the API
+ * Get products with certain tag
  *
  * @param id
  */
-export const getTag = async (id: number) => {
-  return get<Tag>('/tags/' + id);
+export const getTaggedProducts = async (id: string) => {
+  return get<TagResponse>('/tags' + id);
 };

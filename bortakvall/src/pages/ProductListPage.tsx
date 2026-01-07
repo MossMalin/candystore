@@ -1,9 +1,10 @@
 import * as CandyAPI from '../services/CandyAPI';
 import { useQuery } from '@tanstack/react-query';
-import type { Product } from '../services/CandyAPI.types';
+import type { Product, TaggedProducts } from '../services/CandyAPI.types';
 import useCart from '../hooks/useCart';
 import { Cart } from '../components/Cart';
 import { Tags } from '../components/Tags';
+import { useState, useEffect } from 'react';
 
 const ProductListPage = () => {
   const { data: getProducts } = useQuery({
@@ -11,11 +12,31 @@ const ProductListPage = () => {
     queryFn: CandyAPI.getProducts,
   });
 
-  const { cart, addToCart, updateQuantity } = useCart();
+  // const [products, setProducts] = useState<Product[]>(
+  //   Array.isArray(getProducts?.data) ? (getProducts.data as Product[]) : []
+  // );
 
-  const products: Product[] = Array.isArray(getProducts?.data)
-    ? getProducts.data
-    : [];
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    setProducts(
+      Array.isArray(getProducts?.data) ? (getProducts.data as Product[]) : []
+    );
+  }, [getProducts]);
+
+  const selectTaggedProducts = async (tag: string) => {
+    if (tag.length <= 0) {
+      setProducts(
+        Array.isArray(getProducts?.data) ? (getProducts.data as Product[]) : []
+      );
+    } else {
+      const response = await CandyAPI.getTaggedProducts(tag);
+      const taggedProducts: TaggedProducts = response.data;
+      setProducts(taggedProducts.products);
+    }
+  };
+
+  const { cart, addToCart, updateQuantity } = useCart();
 
   function getCartItemQuantity(productId: number): number {
     const cartItem = cart.find((item) => item.id === productId);
@@ -26,7 +47,7 @@ const ProductListPage = () => {
     <>
       <h1>Godis</h1>
 
-      <Tags />
+      <Tags onTagClick={selectTaggedProducts} />
 
       {products && (
         <ul className="product-list__container">
