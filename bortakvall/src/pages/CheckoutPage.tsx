@@ -56,18 +56,6 @@ const CheckoutPage = () => {
   return (
     <>
       <h1>Kassan</h1>
-      {cart && (
-        <ul>
-          {cart.map((item) => (
-            <li key={item.id}>
-              {item.name} - {item.quantity} skopor - <b>{item.totalPrice} kr</b>
-            </li>
-          ))}
-          <li>
-            <strong>Att betala: {totalCost} kr</strong>
-          </li>
-        </ul>
-      )}
       <form action={formAction}>
         <Input
           id="customer_first_name"
@@ -118,7 +106,21 @@ const CheckoutPage = () => {
           type="tel"
           maxLength={255}
         />
-        <button>Beställ</button>
+        {cart && (
+          <ul>
+            {cart.map((item) => (
+              <li key={item.id}>
+                {item.name} {item.quantity} st, <b>{item.totalPrice} kr</b>
+              </li>
+            ))}
+            <li>
+              <strong>Att betala: {totalCost} kr</strong>
+            </li>
+          </ul>
+        )}
+        <div className="style__align-right">
+          <button className="button--primary">Beställ</button>
+        </div>
       </form>
     </>
   );

@@ -60,7 +60,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       removeFromCart(id);
     } else {
       setCart((prev) =>
-        prev.map((item) => (item.id === id ? { ...item, quantity } : item))
+        prev.map((item) =>
+          item.id === id
+            ? { ...item, quantity, totalPrice: item.price * quantity }
+            : item
+        )
       );
     }
   };

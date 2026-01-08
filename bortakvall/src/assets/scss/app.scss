@@ -81,6 +81,17 @@
     &:disabled {
       cursor: default;
     }
+
+    &.button--primary {
+      background-color: colors.$color-primary;
+      color: #fff;
+      font-size: units.px-to-rem(24);
+      padding: units.px-to-rem(10);
+
+      &:hover:not(:disabled) {
+        background-color: colors.$color-primary-hover;
+      }
+    }
   }
 
   ul {
@@ -89,13 +100,6 @@
     padding: 0;
     margin: 0;
     margin-bottom: units.px-to-rem(20);
-
-    @include breakpoints.medium {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin: units.px-to-rem(20);
-    }
   }
 
   &__errormessage {
@@ -118,5 +122,9 @@
     position: absolute;
     width: 1px;
     white-space: nowrap;
+  }
+
+  &__align-right {
+    text-align: right;
   }
 }

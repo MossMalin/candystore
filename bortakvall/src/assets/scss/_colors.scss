@@ -4,16 +4,6 @@
 
 $color-candy-pink:     #FF6FAE;
 $color-bubblegum-rose: #FF3D81;
-$color-soft-peach:     #FFB3D9;
-
-// ==============================
-// Secondary Candy Colors
-// ==============================
-
-$color-lemon-drop: #FFD84D;
-$color-mint-candy: #6FE7C8;
-$color-sky-blue:   #6FB7FF;
-$color-grape-pop:  #8B6CFF;
 
 // ==============================
 // Neutral Colors
@@ -22,19 +12,14 @@ $color-grape-pop:  #8B6CFF;
 $color-marshmallow-white: #FFF9FC;
 $color-sugar-cream:       #F6EAF1;
 $color-soft-cocoa:        #4A2E3B;
-$color-candy-shadow:      #2B1B23;
 
 // ==============================
 // Semantic Colors
 // ==============================
 
-$color-primary:       $color-candy-pink;
-$color-primary-hover: $color-bubblegum-rose;
-$color-secondary:     $color-sky-blue;
-$color-accent:        $color-lemon-drop;
+$color-primary:       $color-bubblegum-rose;
+$color-primary-hover: $color-candy-pink;
 
-$color-success: $color-mint-candy;
-$color-warning: $color-lemon-drop;
 $color-danger:  $color-bubblegum-rose;
 
 // ==============================
@@ -50,41 +35,4 @@ $color-border:     rgba($color-soft-cocoa, 0.15);
 // ==============================
 
 $color-text-main:  $color-soft-cocoa;
-$color-text-invert:#ffffff;
 
-// ==============================
-// Shadows (Soft & Candy-like)
-// ==============================
-
-$shadow-soft:
-  0 4px 12px rgba($color-bubblegum-rose, 0.25);
-
-$shadow-card:
-  0 8px 24px rgba($color-candy-shadow, 0.12);
-
-// ==============================
-// Gradients
-// ==============================
-
-$gradient-primary:
-  linear-gradient(135deg, $color-candy-pink, $color-soft-peach);
-
-$gradient-accent:
-  linear-gradient(135deg, $color-lemon-drop, $color-mint-candy);
-
-// ==============================
-// Border Radius
-// ==============================
-
-$radius-sm: 6px;
-$radius-md: 12px;
-$radius-lg: 20px;
-$radius-xl: 999px;
-
-// ==============================
-// Transitions
-// ==============================
-
-$transition-fast:   0.15s ease;
-$transition-normal: 0.25s ease;
-$transition-slow:   0.4s ease;
