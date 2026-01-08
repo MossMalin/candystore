@@ -1,11 +1,8 @@
 import { Input } from '../components/Input';
 import useCart from '../hooks/useCart';
 import { postOrder } from '../services/CandyAPI';
-import type {
-  CartItem,
-  CartItemsPayload,
-  OrderPayload,
-} from '../services/CandyAPI.types';
+import type { OrderPayload, CartItemsPayload } from '../types/Order.types';
+import type { CartItem } from '../types/Product.types';
 
 const CheckoutPage = () => {
   const { cart, totalCost } = useCart();

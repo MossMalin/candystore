@@ -1,5 +1,5 @@
 import * as CandyAPI from '../services/CandyAPI';
-import type { Product, TaggedProducts } from '../services/CandyAPI.types';
+import type { Product, TaggedProducts } from '../types/Product.types';
 import useCart from '../hooks/useCart';
 import { Cart } from '../components/Cart';
 import { Tags } from '../components/Tags';

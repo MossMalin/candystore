@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CartContext } from './CartContext';
-import type { CartItem, Product } from '../services/CandyAPI.types';
+import type { CartItem, Product } from '../types/Product.types';
 
 interface CartProviderProps {
   children: React.ReactNode;

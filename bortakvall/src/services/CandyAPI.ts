@@ -1,15 +1,10 @@
-/**
- * All communication with the backend REST-API (`json-server`)
- */
-
 import axios from 'axios';
+import type { OrderPayload, OrderResponse } from '../types/Order.types';
 import type {
   Products,
   ProductResponse,
   TagResponse,
-  OrderPayload,
-  OrderResponse,
-} from './CandyAPI.types';
+} from '../types/Product.types';
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL;
 

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import * as CandyAPI from '../services/CandyAPI';
-import type { Tag } from '../services/CandyAPI.types';
+import type { Tag } from '../types/Product.types';
 
 interface TagsProps {
   onTagClick: (tag: string) => Promise<void>;

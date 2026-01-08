@@ -49,7 +49,11 @@ const CartPage = () => {
           </tfoot>
         </table>
       )}
-      <a href="/checkout">Gå till kassan</a>
+      <div className="style__align-right">
+        <button onClick={() => (document.location.href = '/checkout')}>
+          Gå till kassan
+        </button>
+      </div>
     </>
   );
 };
