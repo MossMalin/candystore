@@ -33,24 +33,19 @@ export type CartItem = Pick<Product, 'id' | 'name' | 'price'> & {
 };
 
 type CamelToSnakeCase<S extends string> = S extends `${infer T}${infer U}`
-  ? U extends Uncapitalize<U>
-    ? `${Uncapitalize<T>}${CamelToSnakeCase<U>}`
-    : `${Uncapitalize<T>}_${CamelToSnakeCase<U>}`
+  ? `${T extends Capitalize<T> ? '_' : ''}${Lowercase<T>}${CamelToSnakeCase<U>}`
   : S;
 
-export type ConvertToSnakeCase<T> = T extends Date | RegExp // Skip non-object types like Date/RegExp
-  ? T
-  : T extends Array<infer U> // Handle arrays
-    ? U extends object
-      ? ConvertToSnakeCase<U>[] // Recursively apply to array elements if they're objects
-      : T
-    : T extends object // Handle nested objects
-      ? {
-          [K in keyof T as CamelToSnakeCase<string & K>]: ConvertToSnakeCase<
-            T[K]
-          >; // Recurse into nested values
-        }
-      : T;
+type KeysToSnakeCase<T> = {
+  [K in keyof T as CamelToSnakeCase<string & K>]: T[K];
+};
+
+export type CartItemsPayload = KeysToSnakeCase<{
+  productId: number;
+  qty: number;
+  itemPrice: number;
+  itemTotal: number;
+}>;
 
 export interface Order {
   customerFirstName: string;
@@ -61,12 +56,10 @@ export interface Order {
   customerEmail: string;
   customerPhone: string;
   orderTotal: number;
-  orderItems: CartItem[];
+  orderItems: CartItemsPayload[];
 }
 
-export type OrderUpdate = ConvertToSnakeCase<Order>;
-
-export type OrderCartItems = ConvertToSnakeCase<CartItem>;
+export type OrderPayload = KeysToSnakeCase<Order>;
 
 interface Response {
   status: 'success' | 'error';
@@ -78,4 +71,8 @@ export type ProductResponse = Response & {
 
 export type TagResponse = Response & {
   data: TaggedProducts;
+};
+
+export type OrderResponse = Response & {
+  data: { id: number };
 };

@@ -7,7 +7,7 @@
     background-color: #fff;
     padding: units.px-to-rem(5);
 
-    & tr:last-child {
+    & tfoot {
       font-weight: 700;
       line-height: units.px-to-rem(35);
     }

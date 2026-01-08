@@ -3,7 +3,7 @@ interface InputProps {
   label: string;
   maxLength?: number;
   required?: boolean;
-  type: 'text' | 'email' | 'tel' | 'hidden';
+  type: 'text' | 'email' | 'tel';
   value?: string;
 }
 
@@ -16,8 +16,8 @@ export const Input: React.FC<InputProps> = ({
   value,
 }) => {
   return (
-    <>
-      {type != 'hidden' && <label htmlFor={id}>{label}</label>}
+    <div className="input">
+      <label htmlFor={id}>{label}</label>
       <input
         id={id}
         name={id}
@@ -26,6 +26,6 @@ export const Input: React.FC<InputProps> = ({
         required={required}
         value={value}
       ></input>
-    </>
+    </div>
   );
 };

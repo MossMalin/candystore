@@ -4,6 +4,7 @@
 @use 'colors';
 @use 'units';
 @use './Components/cart';
+@use './Components/input';
 @use './Components/navigation';
 @use './Pages/cart-page';
 @use './Pages/product-list';
@@ -32,6 +33,7 @@
   }
 
   &__section {
+    position: relative;
     max-width: units.px-to-rem(700);
     margin: 0 auto;
     background-color: colors.$color-surface;
@@ -78,6 +80,21 @@
 
     &:disabled {
       cursor: default;
+    }
+  }
+
+  ul {
+    text-align: right;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: units.px-to-rem(20);
+
+    @include breakpoints.medium {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: units.px-to-rem(20);
     }
   }
 

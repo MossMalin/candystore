@@ -3,7 +3,13 @@
  */
 
 import axios from 'axios';
-import type { Products, ProductResponse, TagResponse } from './CandyAPI.types';
+import type {
+  Products,
+  ProductResponse,
+  TagResponse,
+  OrderPayload,
+  OrderResponse,
+} from './CandyAPI.types';
 
 const BASE_URL = import.meta.env.VITE_API_BASEURL;
 
@@ -42,6 +48,14 @@ export const post = async <Response, Payload>(
 ) => {
   const response = await instance.post<Response>(endpoint, data);
   return response.data;
+};
+
+/**
+ *
+ * @param payload
+ */
+export const postOrder = async (payload: OrderPayload) => {
+  return post<OrderResponse, OrderPayload>('/users/89/orders', payload);
 };
 
 /**

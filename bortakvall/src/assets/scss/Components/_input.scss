@@ -1,0 +1,28 @@
+@use '../breakpoints';
+@use '../colors';
+@use '../units';
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: units.px-to-rem(8);
+  margin-bottom: units.px-to-rem(16);
+
+  @include breakpoints.medium {
+    flex-direction: row;
+    align-items: center;
+
+    & label {
+      flex-grow: 1;
+      width: units.px-to-rem(150);
+    }
+  }
+
+  & input {
+    flex-grow: 2;
+    padding: units.px-to-rem(8);
+    border: 1px solid colors.$color-border;
+    border-radius: units.px-to-rem(4);
+    font-size: units.px-to-rem(16);
+  }
+}
