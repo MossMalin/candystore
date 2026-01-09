@@ -38,6 +38,16 @@ const CartPage = () => {
                 <td>{product.quantity * product.price} kr</td>
               </tr>
             ))}
+            {cart.length === 0 && (
+              <tr>
+                <td
+                  colSpan={4}
+                  style={{ textAlign: 'left', paddingLeft: '40px' }}
+                >
+                  Din varukorg är tom 😢 <a href="/">Handla godis här</a>
+                </td>
+              </tr>
+            )}
           </tbody>
           <tfoot>
             <tr>

@@ -42,7 +42,6 @@
         & a {
             gap: units.px-to-rem(10);
             text-decoration: none;
-            font-weight: 700;
 
             &::before {
                 @extend %soft-background;
@@ -52,6 +51,7 @@
                 font-weight: 400;
                 width: fit-content;
                 margin-bottom: units.px-to-rem(10);
+                padding: units.px-to-rem(8);
             }
         }
     }

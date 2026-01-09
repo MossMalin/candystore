@@ -15,7 +15,7 @@ export const Tags: React.FC<TagsProps> = ({ onTagClick }) => {
   const tags: Tag[] = Array.isArray(tagsData?.data) ? tagsData?.data : [];
 
   return (
-    <>
+    <div className="tags">
       <button onClick={() => onTagClick('')}>Visa alla</button>
       {tags &&
         tags.map((tag) => (
@@ -26,6 +26,6 @@ export const Tags: React.FC<TagsProps> = ({ onTagClick }) => {
             {tag.name}
           </button>
         ))}
-    </>
+    </div>
   );
 };

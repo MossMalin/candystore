@@ -14,9 +14,6 @@ function App() {
       <CartProvider>
         <Navigation />
         <main className="style__section hacker-news__main">
-          {location.pathname !== '/' && (
-            <button onClick={() => history.back()}>&#171; Tillbaka</button>
-          )}
           <Routes>
             <Route path="/" element={<ProductListPage />} />
             <Route path="/product" element={<ProductPage />} />

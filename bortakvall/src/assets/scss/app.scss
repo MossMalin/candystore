@@ -6,6 +6,7 @@
 @use './Components/cart';
 @use './Components/input';
 @use './Components/navigation';
+@use './Components/tags';
 @use './Pages/cart-page';
 @use './Pages/product-list';
 
@@ -18,10 +19,6 @@
 
   @include breakpoints.small {
     padding: units.px-to-rem(20);
-  }
-
-  @include breakpoints.large {
-    font-size: units.px-to-rem(18);
   }
 
   & a {
@@ -67,6 +64,7 @@
     border-radius: units.px-to-rem(4);
     background-color: colors.$color-marshmallow-white;
     cursor: pointer;
+    font-size: units.px-to-rem(16);
 
     &:hover:not(:disabled) {
       background-color: colors.$color-surface;

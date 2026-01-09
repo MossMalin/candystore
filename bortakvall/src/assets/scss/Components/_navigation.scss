@@ -16,4 +16,20 @@
             filter: drop-shadow(0 0 2em colors.$color-bubblegum-rose);
         }
     }
+
+    &__menu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+            width: 100%;
+
+        @include breakpoints.medium {
+            max-width: units.px-to-rem(740);
+        }
+
+        & .navigation__cart-link {
+            align-self: flex-end;
+            margin-left: auto;
+        }
+    }
 }

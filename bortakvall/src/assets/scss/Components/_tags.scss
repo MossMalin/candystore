@@ -1,0 +1,10 @@
+@use '../colors';
+@use '../units';
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: units.px-to-rem(8);
+  margin-bottom: units.px-to-rem(16);
+}
