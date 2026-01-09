@@ -3,6 +3,7 @@ import type { Product, TaggedProducts } from '../types/Product.types';
 import useCart from '../hooks/useCart';
 import { Cart } from '../components/Cart';
 import { Tags } from '../components/Tags';
+import { Counter } from '../components/Counter';
 import { useState, useEffect } from 'react';
 import { errorHandler } from '../utils/errorHandler';
 
@@ -73,31 +74,12 @@ const ProductListPage = () => {
                   `Godiset "${product.name}" är slutsålt`}
                 {product.stock_status === 'instock' && (
                   <>
-                    <div className="product-list__update">
-                      <button
-                        aria-label={`Ta bort en ${product.name}`}
-                        onClick={() =>
-                          updateQuantity(
-                            product.id,
-                            getCartItemQuantity(product.id) - 1
-                          )
-                        }
-                      >
-                        ➖
-                      </button>
-                      {getCartItemQuantity(product.id)} av{' '}
-                      {product.stock_quantity}
-                      <button
-                        aria-label={`Lägg till en ${product.name}`}
-                        onClick={() => addToCart(product)}
-                        disabled={
-                          product.stock_quantity <=
-                          getCartItemQuantity(product.id)
-                        }
-                      >
-                        ➕
-                      </button>
-                    </div>
+                    <Counter
+                      product={product}
+                      getCartItemQuantity={getCartItemQuantity}
+                      addToCart={addToCart}
+                      updateQuantity={updateQuantity}
+                    />
                     <a href={`product?id=${product.id}`}>{product.name}</a>
                   </>
                 )}

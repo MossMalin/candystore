@@ -61,10 +61,4 @@
         position: absolute;
         margin: units.px-to-rem(10);
     }
-
-    &__update {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
 }
