@@ -7,6 +7,7 @@ interface CartProviderProps {
 }
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+  // Initialize cart from localStorage if available
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
       const raw = localStorage.getItem('cart');
@@ -16,14 +17,16 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
   });
 
+  // Sync cart state to localStorage on changes
   useEffect(() => {
     try {
       localStorage.setItem('cart', JSON.stringify(cart));
     } catch {
-      // ignore storage errors
+      console.log('Error saving cart to localStorage');
     }
   }, [cart]);
 
+  // Cart manipulation functions
   const addToCart = (product: Product) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
@@ -69,6 +72,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
   };
 
+  // Calculate total cost and total items
   const totalCost = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0

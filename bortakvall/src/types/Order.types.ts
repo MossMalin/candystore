@@ -6,6 +6,7 @@ type KeysToSnakeCase<T> = {
   [K in keyof T as CamelToSnakeCase<string & K>]: T[K];
 };
 
+// Create payload type for cart items with snake_case keys
 export type CartItemsPayload = KeysToSnakeCase<{
   productId: number;
   qty: number;
@@ -25,9 +26,10 @@ export interface Order {
   orderItems: CartItemsPayload[];
 }
 
+// Convert Order keys to snake_case for API payload
 export type OrderPayload = KeysToSnakeCase<Order>;
 
 export interface OrderResponse {
-  status: 'success' | 'error';
+  status: 'success' | 'fail';
   data: { id: number };
 }

@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 const ProductListPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
+  // Fetch all products on initial render.
+  // Issue: I could not figure out how it should work with Tanstack and useEffect together with the first load. I had it working but when I added tag filtering I had to remove Tanstack here.
   useEffect(() => {
     async function fetchData() {
       const getProducts = await CandyAPI.getProducts();
