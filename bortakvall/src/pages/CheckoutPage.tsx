@@ -1,8 +1,9 @@
 import { Input } from '../components/Input';
 import useCart from '../hooks/useCart';
-import { postOrder } from '../services/CandyAPI';
+import { postOrder } from '../services/order.service';
 import type { OrderPayload, CartItemsPayload } from '../types/Order.types';
 import type { CartItem } from '../types/Product.types';
+import { errorHandler } from '../utils/errorHandler';
 
 const CheckoutPage = () => {
   const { cart, totalCost } = useCart();
@@ -31,8 +32,6 @@ const CheckoutPage = () => {
     try {
       const response = await postOrder(order);
 
-      console.log('Order response:', response.data.id);
-      console.log('order success', response.status);
       if (response.status === 'success') {
         localStorage.removeItem('cart');
         alert(
@@ -42,11 +41,7 @@ const CheckoutPage = () => {
         alert('Ett fel uppstod vid beställningen. Vänligen försök igen.');
       }
     } catch (e: unknown) {
-      let error = 'Okänt fel';
-      if (e instanceof Error) {
-        error = e.message;
-      }
-      alert(`Något gick fel vid beställningen. Vänligen försök igen. ${error}`);
+      errorHandler(e);
     }
   };
 

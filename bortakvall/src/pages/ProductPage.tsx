@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import * as CandyAPI from '../services/CandyAPI';
+import { getProduct } from '../services/product.service';
 import type { ProductResponse } from '../types/Product.types';
 import { Cart } from '../components/Cart';
+import { errorHandler } from '../utils/errorHandler';
 
 const ProductPage = () => {
   const [product, setProduct] = useState<ProductResponse>();
@@ -11,15 +12,13 @@ const ProductPage = () => {
       try {
         const url = new URL(window.location.href);
         const id = url.searchParams.get('id');
-        const loadedData = await CandyAPI.getProduct(Number(id));
+        const loadedData = await getProduct(Number(id));
         if (loadedData.status === 'error') {
           throw new Error('No product found');
-          console.log();
         }
         setProduct(loadedData);
       } catch (e) {
-        console.error(e);
-        window.location.href = '/error';
+        errorHandler(e);
       }
     }
     fetchData();
@@ -27,7 +26,6 @@ const ProductPage = () => {
 
   return (
     <>
-      <button onClick={() => history.back()}>&#171; Tillbaka</button>
       {product && (
         <>
           <h1>{product.data.name}</h1>

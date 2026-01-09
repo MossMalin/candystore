@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import * as CandyAPI from '../services/CandyAPI';
+import { getTags } from '../services/product.service';
 import type { Tag } from '../types/Product.types';
 
 interface TagsProps {
@@ -7,12 +7,12 @@ interface TagsProps {
 }
 
 export const Tags: React.FC<TagsProps> = ({ onTagClick }) => {
-  const { data: getTags } = useQuery({
+  const { data: tagsData } = useQuery({
     queryKey: ['getTags'],
-    queryFn: CandyAPI.getTags,
+    queryFn: getTags,
   });
 
-  const tags: Tag[] = Array.isArray(getTags?.data) ? getTags?.data : [];
+  const tags: Tag[] = Array.isArray(tagsData?.data) ? tagsData?.data : [];
 
   return (
     <>

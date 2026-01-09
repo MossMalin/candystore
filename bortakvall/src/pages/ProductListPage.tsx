@@ -1,9 +1,10 @@
-import * as CandyAPI from '../services/CandyAPI';
+import * as API from '../services/product.service';
 import type { Product, TaggedProducts } from '../types/Product.types';
 import useCart from '../hooks/useCart';
 import { Cart } from '../components/Cart';
 import { Tags } from '../components/Tags';
 import { useState, useEffect } from 'react';
+import { errorHandler } from '../utils/errorHandler';
 
 const ProductListPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -12,24 +13,36 @@ const ProductListPage = () => {
   // Issue: I could not figure out how it should work with Tanstack and useEffect together with the first load. I had it working but when I added tag filtering I had to remove Tanstack here.
   useEffect(() => {
     async function fetchData() {
-      const getProducts = await CandyAPI.getProducts();
-      setProducts(
-        Array.isArray(getProducts?.data) ? (getProducts.data as Product[]) : []
-      );
+      try {
+        const getProductsData = await API.getProducts();
+        setProducts(
+          Array.isArray(getProductsData?.data)
+            ? (getProductsData.data as Product[])
+            : []
+        );
+      } catch (e) {
+        errorHandler(e);
+      }
     }
     fetchData();
   }, []);
 
   const selectTaggedProducts = async (tag: string) => {
-    if (tag.length <= 0) {
-      const getProducts = await CandyAPI.getProducts();
-      setProducts(
-        Array.isArray(getProducts?.data) ? (getProducts.data as Product[]) : []
-      );
-    } else {
-      const response = await CandyAPI.getTaggedProducts(tag);
-      const taggedProducts: TaggedProducts = response.data;
-      setProducts(taggedProducts.products);
+    try {
+      if (tag.length <= 0) {
+        const getProducts = await API.getProducts();
+        setProducts(
+          Array.isArray(getProducts?.data)
+            ? (getProducts.data as Product[])
+            : []
+        );
+      } else {
+        const response = await API.getTaggedProducts(tag);
+        const taggedProducts: TaggedProducts = response.data;
+        setProducts(taggedProducts.products);
+      }
+    } catch (e) {
+      errorHandler(e);
     }
   };
 
@@ -62,7 +75,7 @@ const ProductListPage = () => {
                   <>
                     <div className="product-list__update">
                       <button
-                        aria-label={`Lägg till en ${product.name}`}
+                        aria-label={`Ta bort en ${product.name}`}
                         onClick={() =>
                           updateQuantity(
                             product.id,
@@ -75,7 +88,7 @@ const ProductListPage = () => {
                       {getCartItemQuantity(product.id)} av{' '}
                       {product.stock_quantity}
                       <button
-                        aria-label={`Ta bort en ${product.name}`}
+                        aria-label={`Lägg till en ${product.name}`}
                         onClick={() => addToCart(product)}
                         disabled={
                           product.stock_quantity <=
