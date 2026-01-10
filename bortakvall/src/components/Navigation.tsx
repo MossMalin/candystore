@@ -1,8 +1,11 @@
 import logoTransparent from '../assets/images/logoTransparent.png';
+import { useNavigate } from 'react-router';
 
 const Navigation = () => {
+  const navigate = useNavigate();
   const showCartLink =
     location.pathname !== '/cart' && location.pathname !== '/checkout';
+
   return (
     <header>
       <a href="/">
@@ -18,7 +21,7 @@ const Navigation = () => {
         )}
         {showCartLink && (
           <button
-            onClick={() => (window.location.href = '/cart')}
+            onClick={() => navigate('/cart')}
             className="navigation__cart-link"
           >
             🛒 Till varukorgen

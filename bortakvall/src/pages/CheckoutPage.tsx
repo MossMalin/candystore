@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Input } from '../components/Input';
 import useCart from '../hooks/useCart';
 import { postOrder } from '../services/order.service';
@@ -7,17 +8,30 @@ import { errorHandler } from '../utils/errorHandler';
 
 const CheckoutPage = () => {
   const { cart, totalCost } = useCart();
+  const [formData, setFormData] = useState({
+    customer_first_name: '',
+    customer_last_name: '',
+    customer_address: '',
+    customer_postcode: '',
+    customer_city: '',
+    customer_email: '',
+    customer_phone: '',
+  });
 
-  const formAction = async (formData: FormData) => {
-    const formValues = Object.fromEntries(formData);
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const order: OrderPayload = {
-      customer_first_name: formValues['customer_first_name'] as string,
-      customer_last_name: formValues['customer_last_name'] as string,
-      customer_address: formValues['customer_address'] as string,
-      customer_postcode: formValues['customer_postcode'] as string,
-      customer_city: formValues['customer_city'] as string,
-      customer_email: formValues['customer_email'] as string,
-      customer_phone: formValues['customer_phone'] as string,
+      customer_first_name: formData.customer_first_name,
+      customer_last_name: formData.customer_last_name,
+      customer_address: formData.customer_address,
+      customer_postcode: formData.customer_postcode,
+      customer_city: formData.customer_city,
+      customer_email: formData.customer_email,
+      customer_phone: formData.customer_phone,
       order_total: totalCost,
       order_items: cart.map((item: CartItem) => {
         const convertedItem: CartItemsPayload = {
@@ -49,13 +63,15 @@ const CheckoutPage = () => {
   return (
     <>
       <h1>Kassan</h1>
-      <form action={formAction}>
+      <form onSubmit={handleSubmit}>
         <Input
           id="customer_first_name"
           label="Förnamn"
           required={true}
           type="text"
           maxLength={255}
+          value={formData.customer_first_name}
+          onChange={(value) => handleInputChange('customer_first_name', value)}
         />
         <Input
           id="customer_last_name"
@@ -63,6 +79,8 @@ const CheckoutPage = () => {
           required={true}
           type="text"
           maxLength={255}
+          value={formData.customer_last_name}
+          onChange={(value) => handleInputChange('customer_last_name', value)}
         />
         <Input
           id="customer_address"
@@ -70,6 +88,8 @@ const CheckoutPage = () => {
           required={true}
           type="text"
           maxLength={255}
+          value={formData.customer_address}
+          onChange={(value) => handleInputChange('customer_address', value)}
         />
         <Input
           id="customer_postcode"
@@ -77,6 +97,8 @@ const CheckoutPage = () => {
           required={true}
           type="text"
           maxLength={6}
+          value={formData.customer_postcode}
+          onChange={(value) => handleInputChange('customer_postcode', value)}
         />
         <Input
           id="customer_city"
@@ -84,6 +106,8 @@ const CheckoutPage = () => {
           required={true}
           type="text"
           maxLength={255}
+          value={formData.customer_city}
+          onChange={(value) => handleInputChange('customer_city', value)}
         />
         <Input
           id="customer_email"
@@ -91,6 +115,8 @@ const CheckoutPage = () => {
           required={true}
           type="email"
           maxLength={255}
+          value={formData.customer_email}
+          onChange={(value) => handleInputChange('customer_email', value)}
         />
         <Input
           id="customer_phone"
@@ -98,6 +124,8 @@ const CheckoutPage = () => {
           required={false}
           type="tel"
           maxLength={255}
+          value={formData.customer_phone}
+          onChange={(value) => handleInputChange('customer_phone', value)}
         />
         {cart && (
           <ul className="checkout-summary">

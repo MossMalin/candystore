@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { CartContext } from './CartContext';
 import type { CartItem, Product } from '../types/Product.types';
 
@@ -73,9 +73,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   };
 
   // Calculate total cost and total items
-  const totalCost = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
+  const totalCost = useMemo(
+    () => cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    [cart]
   );
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 

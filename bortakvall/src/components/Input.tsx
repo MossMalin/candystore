@@ -5,6 +5,7 @@ interface InputProps {
   required?: boolean;
   type: 'text' | 'email' | 'tel';
   value?: string;
+  onChange?: (value: string) => void;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -14,6 +15,7 @@ export const Input: React.FC<InputProps> = ({
   required,
   type,
   value,
+  onChange,
 }) => {
   return (
     <div className="input">
@@ -25,6 +27,7 @@ export const Input: React.FC<InputProps> = ({
         maxLength={maxLength}
         required={required}
         value={value}
+        onChange={(e) => onChange?.(e.target.value)}
       ></input>
     </div>
   );

@@ -10,6 +10,8 @@ const ProductPage = () => {
   const [product, setProduct] = useState<ProductResponse>();
   const { cart, addToCart, updateQuantity } = useCart();
 
+  const Image_URL = import.meta.env.VITE_IMAGE_BASEURL;
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -57,7 +59,7 @@ const ProductPage = () => {
           </div>
 
           <img
-            src={`https://www.bortakvall.se${product.data.images.large}`}
+            src={`${Image_URL}${product.data.images.large}`}
             title={product.data.name}
           />
         </>

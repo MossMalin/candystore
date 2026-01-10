@@ -59,11 +59,13 @@ const CartPage = () => {
           </tfoot>
         </table>
       )}
-      <div className="style__align-right">
-        <button onClick={() => (document.location.href = '/checkout')}>
-          Gå till kassan
-        </button>
-      </div>
+      {cart.length != 0 && (
+        <div className="style__align-right">
+          <button onClick={() => (document.location.href = '/checkout')}>
+            Gå till kassan
+          </button>
+        </div>
+      )}
     </>
   );
 };

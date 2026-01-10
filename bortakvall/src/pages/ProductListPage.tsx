@@ -10,6 +10,8 @@ import { errorHandler } from '../utils/errorHandler';
 const ProductListPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
+  const Image_URL = import.meta.env.VITE_IMAGE_BASEURL;
+
   // Fetch all products on initial render.
   // Issue: I could not figure out how it should work with Tanstack and useEffect together with the first load. I had it working but when I added tag filtering I had to remove Tanstack here.
   useEffect(() => {
@@ -31,10 +33,10 @@ const ProductListPage = () => {
   const selectTaggedProducts = async (tag: string) => {
     try {
       if (tag.length <= 0) {
-        const getProducts = await API.getProducts();
+        const getProductsData = await API.getProducts();
         setProducts(
-          Array.isArray(getProducts?.data)
-            ? (getProducts.data as Product[])
+          Array.isArray(getProductsData?.data)
+            ? (getProductsData.data as Product[])
             : []
         );
       } else {
@@ -66,7 +68,7 @@ const ProductListPage = () => {
             <li key={product.id}>
               <div className="product-list__price">{product.price} kr</div>
               <img
-                src={`https://www.bortakvall.se${product.images.thumbnail}`}
+                src={`${Image_URL}${product.images.thumbnail}`}
                 title={product.name}
               />
               <div className="product-list__item">
