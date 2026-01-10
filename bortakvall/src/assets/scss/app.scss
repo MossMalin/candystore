@@ -32,7 +32,7 @@
 
   &__section {
     max-width: units.px-to-rem(700);
-    margin: 0 auto;
+    margin: 0 auto units.px-to-rem(60) auto;
     background-color: colors.$color-surface;
     border-radius: units.px-to-rem(10);
     padding: units.px-to-rem(20);
@@ -92,20 +92,14 @@
     }
   }
 
-  ul {
+  ul.checkout-summary {
     text-align: right;
     list-style: none;
     padding: 0;
     margin: 0;
-  }
 
-  &__errormessage {
-    display: none;
-    color: colors.$color-danger;
-    margin-bottom: units.px-to-rem(10);
-
-    &--visible {
-      display: block;
+    & li {
+      line-height: units.px-to-rem(30);
     }
   }
 

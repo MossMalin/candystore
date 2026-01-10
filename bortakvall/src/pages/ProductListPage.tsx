@@ -70,8 +70,12 @@ const ProductListPage = () => {
                 title={product.name}
               />
               <div className="product-list__item">
-                {product.stock_status === 'outofstock' &&
-                  `Godiset "${product.name}" är slutsålt`}
+                {product.stock_status === 'outofstock' && (
+                  <a href={`product?id=${product.id}`}>
+                    {product.name} är slutsålt
+                  </a>
+                )}
+
                 {product.stock_status === 'instock' && (
                   <>
                     <Counter

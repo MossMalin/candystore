@@ -13,7 +13,7 @@ function App() {
     <>
       <CartProvider>
         <Navigation />
-        <main className="style__section hacker-news__main">
+        <main className="style__section">
           <Routes>
             <Route path="/" element={<ProductListPage />} />
             <Route path="/product" element={<ProductPage />} />

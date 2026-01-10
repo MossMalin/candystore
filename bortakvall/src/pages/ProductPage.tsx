@@ -42,15 +42,17 @@ const ProductPage = () => {
               marginBottom: '1rem',
             }}
           >
-            <Counter
-              product={product.data}
-              getCartItemQuantity={(productId) => {
-                const cartItem = cart.find((item) => item.id === productId);
-                return cartItem ? cartItem.quantity : 0;
-              }}
-              addToCart={addToCart}
-              updateQuantity={updateQuantity}
-            />
+            {product.data.stock_status === 'instock' && (
+              <Counter
+                product={product.data}
+                getCartItemQuantity={(productId) => {
+                  const cartItem = cart.find((item) => item.id === productId);
+                  return cartItem ? cartItem.quantity : 0;
+                }}
+                addToCart={addToCart}
+                updateQuantity={updateQuantity}
+              />
+            )}
             <b>Pris: {product.data.price} kr/skopa</b>
           </div>
 

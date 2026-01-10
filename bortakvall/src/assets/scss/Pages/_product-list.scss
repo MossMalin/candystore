@@ -24,7 +24,6 @@
             border-radius: units.px-to-rem(10);
             background-color: #fff;
             overflow: hidden;
-            text-align: left;
 
             @include breakpoints.small {
                 width: units.px-to-rem(160);

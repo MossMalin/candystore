@@ -23,7 +23,7 @@ const CheckoutPage = () => {
         const convertedItem: CartItemsPayload = {
           product_id: item.id,
           item_price: item.price,
-          qty: Math.round(item.quantity),
+          qty: Math.max(1, Math.round(item.quantity)),
           item_total: item.totalPrice,
         };
         return convertedItem;
@@ -37,6 +37,7 @@ const CheckoutPage = () => {
         alert(
           `Tack för din beställning! Din ordernummer är ${response.data.id}`
         );
+        window.location.href = '/';
       } else {
         alert('Ett fel uppstod vid beställningen. Vänligen försök igen.');
       }
@@ -99,10 +100,11 @@ const CheckoutPage = () => {
           maxLength={255}
         />
         {cart && (
-          <ul>
+          <ul className="checkout-summary">
             {cart.map((item) => (
               <li key={item.id}>
-                {item.name} {item.quantity} st, <b>{item.totalPrice} kr</b>
+                {item.name} {item.quantity} skopor {item.price} kr/styck{' '}
+                <b>{item.totalPrice} kr</b>
               </li>
             ))}
             <li>
