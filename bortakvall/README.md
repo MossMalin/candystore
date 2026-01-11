@@ -40,10 +40,6 @@ Have not created a constants file
 
 No transition implemented for example when fold out of Cart.
 
-### Payment page in small mobile
-
-Cart contents looks messy
-
 ## Images and color schema
 
 ChatGPT was nice and created images and colors for the site [Link to ChatGPT](https://chatgpt.com/share/69611e41-dea4-8002-8af3-18c9c64bb81a). I ended up removing some of the colors that I did not use.

@@ -24,6 +24,13 @@ const CheckoutPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const checkQuantity = cart.some((item) => item.quantity <= 0);
+    if (checkQuantity) {
+      alert(
+        'Någon produkt i din kundvagn är felaktig, ta bort produkter som har negativa värden eller noll.'
+      );
+      return;
+    }
     const order: OrderPayload = {
       customer_first_name: formData.customer_first_name,
       customer_last_name: formData.customer_last_name,
@@ -33,17 +40,20 @@ const CheckoutPage = () => {
       customer_email: formData.customer_email,
       customer_phone: formData.customer_phone,
       order_total: totalCost,
-      order_items: cart.map((item: CartItem) => {
-        const convertedItem: CartItemsPayload = {
-          product_id: item.id,
-          item_price: item.price,
-          qty: Math.max(1, Math.round(item.quantity)),
-          item_total: item.totalPrice,
-        };
-        return convertedItem;
-      }),
+      order_items: cart
+        .filter((item: CartItem) => item.quantity > 0)
+        .map((item: CartItem) => {
+          const convertedItem: CartItemsPayload = {
+            product_id: item.id,
+            item_price: item.price,
+            qty: Math.round(item.quantity),
+            item_total: item.totalPrice,
+          };
+          return convertedItem;
+        }),
     };
     try {
+      console.log(order);
       const response = await postOrder(order);
 
       if (response.status === 'success') {
@@ -136,7 +146,7 @@ const CheckoutPage = () => {
               </li>
             ))}
             <li>
-              <strong>Att betala: {totalCost} kr</strong>
+              Att betala: <b>{totalCost} kr</b>
             </li>
           </ul>
         )}

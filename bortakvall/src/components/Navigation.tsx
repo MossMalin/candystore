@@ -32,7 +32,7 @@ const Navigation = () => {
           </button>
         )}
       </div>
-      <Cart />
+      {showCartLink && <Cart />}
     </header>
   );
 };

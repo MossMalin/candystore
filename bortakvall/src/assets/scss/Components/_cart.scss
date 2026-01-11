@@ -1,3 +1,4 @@
+@use '../breakpoints';
 @use '../colors';
 @use '../units';
 
@@ -42,8 +43,13 @@
 
     &--visible {
       display: block;
-      max-width: units.px-to-rem(500);
-      margin: units.px-to-rem(20) 0 0 auto;
+      margin-top: units.px-to-rem(20);
+      width: 100%;
+
+      @include breakpoints.medium {
+        max-width: units.px-to-rem(740);
+        margin-inline: auto;
+      }
     }
   }
 
