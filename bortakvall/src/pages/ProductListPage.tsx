@@ -1,7 +1,6 @@
 import * as API from '../services/product.service';
 import type { Product, TaggedProducts } from '../types/Product.types';
 import useCart from '../hooks/useCart';
-import { Cart } from '../components/Cart';
 import { Tags } from '../components/Tags';
 import { Counter } from '../components/Counter';
 import { useState, useEffect } from 'react';
@@ -94,7 +93,6 @@ const ProductListPage = () => {
           ))}
         </ul>
       )}
-      <Cart />
     </>
   );
 };

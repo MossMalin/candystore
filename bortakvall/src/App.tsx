@@ -5,7 +5,6 @@ import { CartProvider } from './context/CartProvider';
 import ProductListPage from './pages/ProductListPage';
 import NotFound from './pages/NotFound';
 import ProductPage from './pages/ProductPage';
-import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
           <Routes>
             <Route path="/" element={<ProductListPage />} />
             <Route path="/product" element={<ProductPage />} />
-            <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

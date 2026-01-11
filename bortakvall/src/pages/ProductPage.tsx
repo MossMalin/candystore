@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getProduct } from '../services/product.service';
 import type { ProductResponse } from '../types/Product.types';
-import { Cart } from '../components/Cart';
 import { errorHandler } from '../utils/errorHandler';
 import { Counter } from '../components/Counter';
 import useCart from '../hooks/useCart';
@@ -64,7 +63,6 @@ const ProductPage = () => {
           />
         </>
       )}
-      <Cart />
     </>
   );
 };

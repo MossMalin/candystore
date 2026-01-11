@@ -17,6 +17,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
   });
 
+  const [showCart, setShowCart] = useState<boolean>(false);
+
   // Sync cart state to localStorage on changes
   useEffect(() => {
     try {
@@ -88,6 +90,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         updateQuantity,
         totalCost,
         totalItems,
+        showCart,
+        setShowCart,
       }}
     >
       {children}

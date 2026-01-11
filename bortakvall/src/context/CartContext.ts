@@ -8,6 +8,8 @@ interface CartContextType {
   updateQuantity: (id: number, quantity: number) => void;
   totalCost: number;
   totalItems: number;
+  showCart: boolean;
+  setShowCart: (show: boolean) => void;
 }
 
 export const CartContext = createContext<CartContextType>({
@@ -17,4 +19,6 @@ export const CartContext = createContext<CartContextType>({
   updateQuantity: () => {},
   totalCost: 0,
   totalItems: 0,
+  showCart: false,
+  setShowCart: () => {},
 });

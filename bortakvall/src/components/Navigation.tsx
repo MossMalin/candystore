@@ -1,10 +1,14 @@
 import logoTransparent from '../assets/images/logoTransparent.png';
-import { useNavigate } from 'react-router';
+import useCart from '../hooks/useCart';
+import { Cart } from './Cart';
 
 const Navigation = () => {
-  const navigate = useNavigate();
-  const showCartLink =
-    location.pathname !== '/cart' && location.pathname !== '/checkout';
+  const showCartLink = location.pathname !== '/checkout';
+  const { showCart, setShowCart } = useCart();
+
+  const showHideText = () => {
+    return showCart ? 'Dölj varukorgen' : 'Visa varukorgen';
+  };
 
   return (
     <header>
@@ -21,13 +25,14 @@ const Navigation = () => {
         )}
         {showCartLink && (
           <button
-            onClick={() => navigate('/cart')}
+            onClick={() => setShowCart(!showCart)}
             className="navigation__cart-link"
           >
-            🛒 Till varukorgen
+            🛒 {showHideText()}
           </button>
         )}
       </div>
+      <Cart />
     </header>
   );
 };

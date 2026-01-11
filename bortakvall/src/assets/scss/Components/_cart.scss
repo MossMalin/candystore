@@ -3,6 +3,7 @@
 
 .cart {
   &__container {
+    z-index: 1;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -34,5 +35,45 @@
     border-radius: units.px-to-rem(4);
     background-color: colors.$color-surface;
     font-weight: 700;
+  }
+
+  &__summary {
+    display: none;
+
+    &--visible {
+      display: block;
+      max-width: units.px-to-rem(500);
+      margin: units.px-to-rem(20) 0 0 auto;
+    }
+  }
+
+  &__table {
+    width: 100%;
+    border: 1px solid colors.$color-border;
+    border-radius: units.px-to-rem(10);
+    background-color: #fff;
+    padding: units.px-to-rem(5);
+
+    & tfoot {
+      font-weight: 700;
+      line-height: units.px-to-rem(35);
+    }
+
+    & th {
+      text-align: left;
+      line-height: units.px-to-rem(35);
+    }
+
+    & th,
+    td {
+
+      &:first-child {
+        width: units.px-to-rem(35);
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
   }
 }
