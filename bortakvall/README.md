@@ -1,5 +1,9 @@
 # Inlämningsuppgift 2
 
+## Aiming for
+
+Väl Godkänd
+
 ## Public application url
 
 [Bortakväll](https://ornate-vacherin-704939.netlify.app/)

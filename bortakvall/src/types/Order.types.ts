@@ -29,7 +29,14 @@ export interface Order {
 // Convert Order keys to snake_case for API payload
 export type OrderPayload = KeysToSnakeCase<Order>;
 
+// Create response type for order API with snake_case keys
+type OrderItems = KeysToSnakeCase<{
+  id: number | null;
+  orderItems: [string] | null;
+}>;
+
 export interface OrderResponse {
   status: 'success' | 'fail';
-  data: { id: number };
+  message: string | null;
+  data: OrderItems;
 }

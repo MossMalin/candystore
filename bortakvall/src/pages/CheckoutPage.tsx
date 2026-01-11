@@ -63,7 +63,13 @@ const CheckoutPage = () => {
         );
         window.location.href = '/';
       } else {
-        alert('Ett fel uppstod vid beställningen. Vänligen försök igen.');
+        const errorDetails =
+          response.data && Object.values(response.data)[0]
+            ? (Object.values(response.data)[0] as string[]).join(', ')
+            : '';
+        alert(
+          `Ett fel uppstod vid beställningen. Vänligen försök igen. (${response.message}${errorDetails ? ', ' + errorDetails : ''})`
+        );
       }
     } catch (e: unknown) {
       errorHandler(e);
