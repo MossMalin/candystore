@@ -1,9 +1,9 @@
-import type { Product } from '../types/Product.types';
+import type { Products } from '../types/Product.types';
 
 interface CounterProps {
-  product: Product;
+  product: Products;
   getCartItemQuantity: (productId: number) => number;
-  addToCart: (product: Product) => void;
+  addToCart: (product: Products) => void;
   updateQuantity: (productId: number, quantity: number) => void;
 }
 
@@ -24,11 +24,11 @@ export const Counter: React.FC<CounterProps> = ({
         >
           ➖
         </button>
-        {getCartItemQuantity(product.id)} av {product.stock_quantity}
+        {getCartItemQuantity(product.id)} av {product.stockQuantity}
         <button
           aria-label={`Lägg till en ${product.name}`}
           onClick={() => addToCart(product)}
-          disabled={product.stock_quantity <= getCartItemQuantity(product.id)}
+          disabled={product.stockQuantity <= getCartItemQuantity(product.id)}
         >
           ➕
         </button>

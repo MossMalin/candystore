@@ -2,20 +2,39 @@ import { useState } from 'react';
 import { Input } from '../components/Input';
 import useCart from '../hooks/useCart';
 import { postOrder } from '../services/order.service';
-import type { OrderPayload, CartItemsPayload } from '../types/Order.types';
+import type {
+  OrderPayload,
+  CartItemsPayload,
+  CheckoutFormData,
+  CheckoutFormDataSnakeCase,
+} from '../types/Order.types';
 import type { CartItem } from '../types/Product.types';
 import { errorHandler } from '../utils/errorHandler';
 
 const CheckoutPage = () => {
+  const formDataLocalStorage = localStorage.getItem('checkoutFormData');
+  const formDataLocalStorageSnakeCase: CheckoutFormDataSnakeCase = JSON.parse(
+    formDataLocalStorage || '{}'
+  );
+  const savedFormData: CheckoutFormData = {
+    customerFirstName: formDataLocalStorageSnakeCase.customer_first_name || '',
+    customerLastName: formDataLocalStorageSnakeCase.customer_last_name || '',
+    customerAddress: formDataLocalStorageSnakeCase.customer_address || '',
+    customerPostcode: formDataLocalStorageSnakeCase.customer_postcode || '',
+    customerCity: formDataLocalStorageSnakeCase.customer_city || '',
+    customerEmail: formDataLocalStorageSnakeCase.customer_email || '',
+    customerPhone: formDataLocalStorageSnakeCase.customer_phone || '',
+  };
+
   const { cart, totalCost } = useCart();
-  const [formData, setFormData] = useState({
-    customer_first_name: '',
-    customer_last_name: '',
-    customer_address: '',
-    customer_postcode: '',
-    customer_city: '',
-    customer_email: '',
-    customer_phone: '',
+  const [formData, setFormData] = useState<CheckoutFormDataSnakeCase>({
+    customer_first_name: savedFormData.customerFirstName,
+    customer_last_name: savedFormData.customerLastName,
+    customer_address: savedFormData.customerAddress,
+    customer_postcode: savedFormData.customerPostcode,
+    customer_city: savedFormData.customerCity,
+    customer_email: savedFormData.customerEmail,
+    customer_phone: savedFormData.customerPhone,
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -53,11 +72,11 @@ const CheckoutPage = () => {
         }),
     };
     try {
-      console.log(order);
       const response = await postOrder(order);
 
       if (response.status === 'success') {
         localStorage.removeItem('cart');
+        localStorage.setItem('checkoutFormData', JSON.stringify(formData));
         alert(
           `Tack för din beställning! Din ordernummer är ${response.data.id}`
         );

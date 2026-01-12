@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { getProduct } from '../services/product.service';
-import type { ProductResponse } from '../types/Product.types';
+import type { ProductResponse } from '../types/Response.types';
 import { errorHandler } from '../utils/errorHandler';
-import { Counter } from '../components/Counter';
-import useCart from '../hooks/useCart';
 
 const ProductPage = () => {
   const [product, setProduct] = useState<ProductResponse>();
-  const { cart, addToCart, updateQuantity } = useCart();
 
   const Image_URL = import.meta.env.VITE_IMAGE_BASEURL;
 
@@ -33,6 +30,19 @@ const ProductPage = () => {
       {product && (
         <>
           <h1>{product.data.name}</h1>
+          {product.data.tags &&
+            product.data.tags.map((tag) => (
+              <>
+                <button
+                  key={tag.id}
+                  onClick={() =>
+                    (window.location.href = `/?tag=${tag.id.toString()}`)
+                  }
+                >
+                  {tag.name}
+                </button>{' '}
+              </>
+            ))}
           <p>Id: {product.data.id}</p>
           <div dangerouslySetInnerHTML={{ __html: product.data.description }} />
           <div
@@ -43,17 +53,6 @@ const ProductPage = () => {
               marginBottom: '1rem',
             }}
           >
-            {product.data.stock_status === 'instock' && (
-              <Counter
-                product={product.data}
-                getCartItemQuantity={(productId) => {
-                  const cartItem = cart.find((item) => item.id === productId);
-                  return cartItem ? cartItem.quantity : 0;
-                }}
-                addToCart={addToCart}
-                updateQuantity={updateQuantity}
-              />
-            )}
             <b>Pris: {product.data.price} kr/skopa</b>
           </div>
 

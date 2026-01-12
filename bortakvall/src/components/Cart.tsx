@@ -1,10 +1,20 @@
 import useCart from '../hooks/useCart';
 import cartImage from '../assets/images/cart.png';
 import { useEffect } from 'react';
+import { Counter } from './Counter';
+import type { Product } from '../types/Product.types';
 
 export const Cart = () => {
-  const { cart, totalCost, removeFromCart, totalItems, showCart, setShowCart } =
-    useCart();
+  const {
+    cart,
+    totalCost,
+    removeFromCart,
+    totalItems,
+    showCart,
+    setShowCart,
+    addToCart,
+    updateQuantity,
+  } = useCart();
 
   const showCartSummaryClasses = () => {
     return showCart ? 'cart__summary cart__summary--visible' : 'cart__summary';
@@ -53,7 +63,26 @@ export const Cart = () => {
                   <td>
                     <a href={`/product?id=${product.id}`}>{product.name}</a>
                   </td>
-                  <td>{product.quantity} st</td>
+                  <td>
+                    <Counter
+                      product={
+                        {
+                          id: product.id,
+                          name: product.name,
+                          price: product.price,
+                          stockQuantity: product.stockQuantity,
+                        } as Product
+                      }
+                      getCartItemQuantity={(productId) => {
+                        const cartItem = cart.find(
+                          (item) => item.id === productId
+                        );
+                        return cartItem ? cartItem.quantity : 0;
+                      }}
+                      addToCart={addToCart}
+                      updateQuantity={updateQuantity}
+                    />
+                  </td>
                   <td>{product.quantity * product.price} kr</td>
                 </tr>
               ))}

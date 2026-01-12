@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { CartContext } from './CartContext';
-import type { CartItem, Product } from '../types/Product.types';
+import type { CartItem, Products } from '../types/Product.types';
 
 interface CartProviderProps {
   children: React.ReactNode;
@@ -29,7 +29,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   }, [cart]);
 
   // Cart manipulation functions
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Products) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
@@ -51,6 +51,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
           price: product.price,
           quantity: 1,
           totalPrice: product.price,
+          stockQuantity: product.stockQuantity,
         },
       ];
     });

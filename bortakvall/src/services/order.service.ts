@@ -1,5 +1,6 @@
 import { post } from './http';
-import type { OrderPayload, OrderResponse } from '../types/Order.types';
+import type { OrderPayload } from '../types/Order.types';
+import type { OrderResponse } from '../types/Response.types';
 
 /**
  * Post an order to the API

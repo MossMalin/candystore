@@ -1,5 +1,5 @@
 import * as API from '../services/product.service';
-import type { Product, TaggedProducts } from '../types/Product.types';
+import type { Products, TaggedProducts } from '../types/Product.types';
 import useCart from '../hooks/useCart';
 import { Tags } from '../components/Tags';
 import { Counter } from '../components/Counter';
@@ -7,37 +7,18 @@ import { useState, useEffect } from 'react';
 import { errorHandler } from '../utils/errorHandler';
 
 const ProductListPage = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Products[]>([]);
 
   const Image_URL = import.meta.env.VITE_IMAGE_BASEURL;
 
-  // Fetch all products on initial render.
-  // Issue: I could not figure out how it should work with Tanstack and useEffect together with the first load. I had it working but when I added tag filtering I had to remove Tanstack here.
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const getProductsData = await API.getProducts();
-        setProducts(
-          Array.isArray(getProductsData?.data)
-            ? (getProductsData.data as Product[])
-            : []
-        );
-      } catch (e) {
-        errorHandler(e);
-      }
-    }
-    fetchData();
-  }, []);
-
   const selectTaggedProducts = async (tag: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('tag', tag ? tag.replace('/', '') : '');
+    window.history.pushState({}, '', url.toString());
     try {
       if (tag.length <= 0) {
         const getProductsData = await API.getProducts();
-        setProducts(
-          Array.isArray(getProductsData?.data)
-            ? (getProductsData.data as Product[])
-            : []
-        );
+        setProducts(getProductsData.data);
       } else {
         const response = await API.getTaggedProducts(tag);
         const taggedProducts: TaggedProducts = response.data;
@@ -47,6 +28,20 @@ const ProductListPage = () => {
       errorHandler(e);
     }
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const url = new URL(window.location.href);
+        const tagId = url.searchParams.get('tag');
+
+        selectTaggedProducts(tagId ? `/${tagId}` : '');
+      } catch (e) {
+        errorHandler(e);
+      }
+    }
+    fetchData();
+  }, []);
 
   const { cart, addToCart, updateQuantity } = useCart();
 
@@ -71,13 +66,13 @@ const ProductListPage = () => {
                 title={product.name}
               />
               <div className="product-list__item">
-                {product.stock_status === 'outofstock' && (
+                {product.stockStatus === 'outofstock' && (
                   <a href={`product?id=${product.id}`}>
                     {product.name} är slutsåld
                   </a>
                 )}
 
-                {product.stock_status === 'instock' && (
+                {product.stockStatus === 'instock' && (
                   <>
                     <Counter
                       product={product}

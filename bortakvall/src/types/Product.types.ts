@@ -3,19 +3,17 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  on_sale: boolean;
+  onSale: boolean;
   images: {
     thumbnail: string;
     large: string;
   };
-  stock_status: 'instock' | 'outofstock';
-  stock_quantity: number;
+  stockStatus: 'instock' | 'outofstock';
+  stockQuantity: number;
   tags: [Tag];
 }
 
-export type Products = {
-  data: Omit<Product, 'data.description'>;
-};
+export type Products = Omit<Product, 'description'>;
 
 export interface Tag {
   id: number;
@@ -24,22 +22,13 @@ export interface Tag {
 }
 
 export type TaggedProducts = Tag & {
-  products: Product[];
+  products: Products[];
 };
 
-interface Response {
-  status: 'success' | 'error';
-}
-
-export type ProductResponse = Response & {
-  data: Product;
-};
-
-export type TagResponse = Response & {
-  data: TaggedProducts;
-};
-
-export type CartItem = Pick<Product, 'id' | 'name' | 'price'> & {
+export type CartItem = Pick<
+  Product,
+  'id' | 'name' | 'price' | 'stockQuantity'
+> & {
   quantity: number;
   totalPrice: number;
 };
