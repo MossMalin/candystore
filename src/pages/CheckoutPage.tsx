@@ -12,9 +12,11 @@ import type {
 import type { CartItem } from '../types/Product.types';
 import { errorHandler } from '../utils/errorHandler';
 import Toast from '../components/Toast';
+import Loading from '../components/Loading';
 
 const CheckoutPage = () => {
   const [toastMessage, setToastMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const formDataLocalStorage = localStorage.getItem('checkoutFormData');
   const formDataLocalStorageSnakeCase: CheckoutFormDataSnakeCase = JSON.parse(
@@ -76,6 +78,7 @@ const CheckoutPage = () => {
         }),
     };
     try {
+      setLoading(true);
       const response = await postOrder(order);
 
       if (response.status === 'success') {
@@ -94,11 +97,14 @@ const CheckoutPage = () => {
       }
     } catch (e: unknown) {
       setToastMessage(errorHandler(e));
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
+      <Loading isLoading={loading} />
       <h1>Kassan</h1>
       <form onSubmit={handleSubmit}>
         <Input

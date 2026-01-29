@@ -7,14 +7,17 @@ const ConfirmationPage = () => {
 
   return (
     <>
-      <h1>Tack för din order</h1>
+      <h1>
+        This is a store for training purpose. You will not get any candy if you
+        place an order.
+      </h1>
       <p>
-        Din beställning har mottagits och behandlas. Du kommer att få en
-        bekräftelse via e-post inom kort.
+        Your order has been received and is being processed. You will receive a
+        confirmation via email shortly.
       </p>
-      <p>Ditt ordernummer är {orderId}</p>
+      <p>Your order number is {orderId}</p>
       <p>
-        <a href="/">Tillbaka till startsidan</a>
+        <a href="/">Back to homepage</a>
       </p>
       <img src={happy} width="100%" />
     </>

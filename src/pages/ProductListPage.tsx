@@ -1,4 +1,4 @@
-import * as API from '../services/product.service';
+import { getProducts, getTaggedProducts } from '../services/product.service';
 import type { Products, TaggedProducts } from '../types/Product.types';
 import useCart from '../hooks/useCart';
 import { Tags } from '../components/Tags';
@@ -7,10 +7,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { errorHandler } from '../utils/errorHandler';
 import Toast from '../components/Toast';
+import Loading from '../components/Loading';
 
 const ProductListPage = () => {
   const [products, setProducts] = useState<Products[]>([]);
   const [toastMessage, setToastMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const Image_URL = import.meta.env.VITE_IMAGE_BASEURL;
 
@@ -18,22 +20,10 @@ const ProductListPage = () => {
   const location = useLocation();
 
   const selectTaggedProducts = useCallback(
-    async (tag: string) => {
+    async (tag: string): Promise<void> => {
       const params = new URLSearchParams(location.search);
       params.set('tag', tag ? tag.replace('/', '') : '');
       navigate({ search: params.toString() });
-      try {
-        if (tag.length <= 0) {
-          const getProductsData = await API.getProducts();
-          setProducts(getProductsData.data);
-        } else {
-          const response = await API.getTaggedProducts(tag);
-          const taggedProducts: TaggedProducts = response.data;
-          setProducts(taggedProducts.products);
-        }
-      } catch (e) {
-        setToastMessage(errorHandler(e));
-      }
     },
     [location.search, navigate]
   );
@@ -41,15 +31,25 @@ const ProductListPage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
+        setLoading(true);
         const params = new URLSearchParams(location.search);
         const tagId = params.get('tag');
-        selectTaggedProducts(tagId ? `/${tagId}` : '');
+        if (!tagId) {
+          const getProductsData = await getProducts();
+          setProducts(getProductsData.data);
+        } else {
+          const response = await getTaggedProducts(`/${tagId}`);
+          const taggedProducts: TaggedProducts = response.data;
+          setProducts(taggedProducts.products);
+        }
       } catch (e) {
         setToastMessage(errorHandler(e));
+      } finally {
+        setLoading(false);
       }
     }
     fetchData();
-  }, [location.search, selectTaggedProducts]);
+  }, [location.search]);
 
   const { cart, addToCart, updateQuantity } = useCart();
 
@@ -60,7 +60,10 @@ const ProductListPage = () => {
 
   return (
     <>
-      <h1>Candy</h1>
+      <Loading isLoading={loading} />
+
+      <h1>This is a store for training purpose. </h1>
+      <p>You will not get any candy if you place an order.</p>
 
       <Tags onTagClick={selectTaggedProducts} />
 

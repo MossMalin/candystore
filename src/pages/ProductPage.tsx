@@ -4,10 +4,12 @@ import { getProduct } from '../services/product.service';
 import type { ProductResponse } from '../types/Response.types';
 import { errorHandler } from '../utils/errorHandler';
 import Toast from '../components/Toast';
+import Loading from '../components/Loading';
 
 const ProductPage = () => {
   const [product, setProduct] = useState<ProductResponse>();
   const [toastMessage, setToastMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,6 +20,7 @@ const ProductPage = () => {
       try {
         const searchParams = new URLSearchParams(location.search);
         const id = searchParams.get('id');
+        setLoading(true);
         const loadedData = await getProduct(Number(id));
         if (loadedData.status === 'error') {
           throw new Error('No product found');
@@ -25,6 +28,8 @@ const ProductPage = () => {
         setProduct(loadedData);
       } catch (e) {
         setToastMessage(errorHandler(e));
+      } finally {
+        setLoading(false);
       }
     }
     fetchData();
@@ -32,6 +37,7 @@ const ProductPage = () => {
 
   return (
     <>
+      <Loading isLoading={loading} />
       {product && (
         <>
           <h1>{product.data.name}</h1>

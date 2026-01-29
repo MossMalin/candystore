@@ -6,6 +6,7 @@
 @use './Components/cart';
 @use './Components/counter';
 @use './Components/input';
+@use './Components/loading';
 @use './Components/navigation';
 @use './Components/tags';
 @use './Components/toast';
@@ -67,7 +68,12 @@
     cursor: pointer;
     font-size: units.px-to-rem(16);
 
-    &:hover:not(:disabled) {
+    &.active {
+      background-color: colors.$color-primary;
+      color: #fff;
+    }
+
+    &:hover:not(:disabled):not(.active) {
       background-color: colors.$color-surface;
     }
 
