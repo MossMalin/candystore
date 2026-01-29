@@ -1,9 +1,11 @@
 import { createContext } from 'react';
-import type { CartItem, Products } from '../types/Product.types.ts';
+import type { CartItem, Product } from '../types/Product.types.ts';
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Products) => void;
+  addToCart: (
+    product: Pick<Product, 'id' | 'name' | 'price' | 'stockQuantity'>
+  ) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
   totalCost: number;

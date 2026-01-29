@@ -2,7 +2,6 @@ import useCart from '../hooks/useCart';
 import cartImage from '../assets/images/cart.png';
 import { useEffect } from 'react';
 import { Counter } from './Counter';
-import type { Product } from '../types/Product.types';
 
 export const Cart = () => {
   const {
@@ -65,14 +64,12 @@ export const Cart = () => {
                   </td>
                   <td>
                     <Counter
-                      product={
-                        {
-                          id: product.id,
-                          name: product.name,
-                          price: product.price,
-                          stockQuantity: product.stockQuantity,
-                        } as Product
-                      }
+                      product={{
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        stockQuantity: product.stockQuantity,
+                      }}
                       getCartItemQuantity={(productId) => {
                         const cartItem = cart.find(
                           (item) => item.id === productId

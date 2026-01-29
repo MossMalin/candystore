@@ -1,9 +1,11 @@
-import type { Products } from '../types/Product.types';
+import type { Product } from '../types/Product.types';
 
 interface CounterProps {
-  product: Products;
+  product: Pick<Product, 'id' | 'name' | 'price' | 'stockQuantity'>;
   getCartItemQuantity: (productId: number) => number;
-  addToCart: (product: Products) => void;
+  addToCart: (
+    product: Pick<Product, 'id' | 'name' | 'price' | 'stockQuantity'>
+  ) => void;
   updateQuantity: (productId: number, quantity: number) => void;
 }
 
