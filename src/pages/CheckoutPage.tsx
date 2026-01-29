@@ -50,7 +50,7 @@ const CheckoutPage = () => {
     const checkQuantity = cart.some((item) => item.quantity <= 0);
     if (checkQuantity) {
       setToastMessage(
-        'Någon produkt i din kundvagn är felaktig, ta bort produkter som har negativa värden eller noll.'
+        'One or more products in your cart have invalid quantities. Please remove products with zero or negative quantities.'
       );
       return;
     }
@@ -89,7 +89,7 @@ const CheckoutPage = () => {
             ? (Object.values(response.data)[0] as string[]).join(', ')
             : '';
         setToastMessage(
-          `Ett fel uppstod vid beställningen. Vänligen försök igen. (${response.message}${errorDetails ? ', ' + errorDetails : ''})`
+          `An error occurred. Please try again. (${response.message}${errorDetails ? ', ' + errorDetails : ''})`
         );
       }
     } catch (e: unknown) {

@@ -4,5 +4,5 @@ export const errorHandler = (error: unknown): string => {
   } else {
     console.log('Okänt fel');
   }
-  return 'Ett fel uppstod. Vänligen försök igen.';
+  return 'An error occurred. Please try again later.';
 };
