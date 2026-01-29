@@ -101,7 +101,7 @@ const CheckoutPage = () => {
       <form onSubmit={handleSubmit}>
         <Input
           id="customer_first_name"
-          label="Förnamn"
+          label="First name"
           required={true}
           type="text"
           maxLength={255}
@@ -110,7 +110,7 @@ const CheckoutPage = () => {
         />
         <Input
           id="customer_last_name"
-          label="Efternamn"
+          label="Last name"
           required={true}
           type="text"
           maxLength={255}
@@ -119,7 +119,7 @@ const CheckoutPage = () => {
         />
         <Input
           id="customer_address"
-          label="Adress"
+          label="Address"
           required={true}
           type="text"
           maxLength={255}
@@ -128,7 +128,7 @@ const CheckoutPage = () => {
         />
         <Input
           id="customer_postcode"
-          label="Postnummer"
+          label="Postcode"
           required={true}
           type="text"
           maxLength={6}
@@ -137,7 +137,7 @@ const CheckoutPage = () => {
         />
         <Input
           id="customer_city"
-          label="Postort"
+          label="City"
           required={true}
           type="text"
           maxLength={255}
@@ -146,7 +146,7 @@ const CheckoutPage = () => {
         />
         <Input
           id="customer_email"
-          label="E-postadress"
+          label="Email address"
           required={true}
           type="email"
           maxLength={255}
@@ -155,7 +155,7 @@ const CheckoutPage = () => {
         />
         <Input
           id="customer_phone"
-          label="Telefonnummer (ej obligatorisk)"
+          label="Phone number (optional)"
           required={false}
           type="tel"
           maxLength={255}
@@ -166,17 +166,17 @@ const CheckoutPage = () => {
           <ul className="checkout-summary">
             {cart.map((item) => (
               <li key={item.id}>
-                {item.name} {item.quantity} skopor {item.price} kr/styck{' '}
+                {item.name} {item.quantity} scoops {item.price} kr each{' '}
                 <b>{item.totalPrice} kr</b>
               </li>
             ))}
             <li>
-              Att betala: <b>{totalCost} kr</b>
+              Total: <b>{totalCost} kr</b>
             </li>
           </ul>
         )}
         <div className="style__align-right">
-          <button className="button--primary">Beställ</button>
+          <button className="button--primary">Order</button>
         </div>
       </form>
     </>

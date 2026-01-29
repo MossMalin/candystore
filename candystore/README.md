@@ -6,7 +6,7 @@ Väl Godkänd
 
 ## Public application url
 
-[Bortakväll](https://ornate-vacherin-704939.netlify.app/)
+[Candystore](https://ornate-vacherin-704939.netlify.app/)
 
 ## Deviations from assignment
 

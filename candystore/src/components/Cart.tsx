@@ -29,8 +29,8 @@ export const Cart = () => {
   return (
     <>
       <div className="cart__container">
-        <a title="Visa varukorgen" href="#" onClick={() => setShowCart(true)}>
-          <img src={cartImage} alt="Kundvagnen" />
+        <a title="Show cart" href="#" onClick={() => setShowCart(true)}>
+          <img src={cartImage} alt="Shopping cart" />
           <div className="cart__items">{totalItems}</div>
         </a>
       </div>
@@ -38,15 +38,15 @@ export const Cart = () => {
       <div className={showCartSummaryClasses()}>
         {cart && (
           <table className="cart__table">
-            <caption className="style__visuallyhidden">Varukorg</caption>
+            <caption className="style__visuallyhidden">Cart</caption>
             <thead>
               <tr>
                 <th>
-                  <div className="style__visuallyhidden">Ta bort</div>
+                  <div className="style__visuallyhidden">Remove</div>
                 </th>
-                <th>Produktnamn</th>
-                <th>Antal</th>
-                <th>Summa</th>
+                <th>Product name</th>
+                <th>Quantity</th>
+                <th>Total</th>
               </tr>
             </thead>
             <tbody>
@@ -55,7 +55,7 @@ export const Cart = () => {
                   <td>
                     <button
                       onClick={() => removeFromCart(product.id)}
-                      aria-label={`Ta bort ${product.name}`}
+                      aria-label={`Remove ${product.name}`}
                     >
                       ✖️
                     </button>
@@ -92,7 +92,7 @@ export const Cart = () => {
                     colSpan={4}
                     style={{ textAlign: 'left', paddingLeft: '40px' }}
                   >
-                    Din varukorg är tom 😢 <a href="/">Handla godis här</a>
+                    Your cart is empty 😢 <a href="/">Shop candy here</a>
                   </td>
                 </tr>
               )}
@@ -100,7 +100,7 @@ export const Cart = () => {
             <tfoot>
               <tr>
                 <td></td>
-                <td>Totalt belopp</td>
+                <td>Total amount</td>
                 <td></td>
                 <td>{totalCost} kr</td>
               </tr>
@@ -113,7 +113,7 @@ export const Cart = () => {
               onClick={() => (document.location.href = '/checkout')}
               className="button--primary"
             >
-              Gå till kassan
+              Go to checkout
             </button>
           </div>
         )}

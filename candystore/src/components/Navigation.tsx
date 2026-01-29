@@ -7,7 +7,7 @@ const Navigation = () => {
   const { showCart, setShowCart } = useCart();
 
   const showHideText = () => {
-    return showCart ? 'Dölj varukorgen' : 'Visa varukorgen';
+    return showCart ? 'Hide cart' : 'Show cart';
   };
 
   return (
@@ -16,12 +16,12 @@ const Navigation = () => {
         <img
           src={logoTransparent}
           className="navigation__logo"
-          alt="Bortakväll logo"
+          alt="Candystore logo"
         />
       </a>
       <div className="navigation__menu">
         {location.pathname !== '/' && (
-          <button onClick={() => history.back()}>&#171; Tillbaka</button>
+          <button onClick={() => history.back()}>&#171; Back</button>
         )}
         {showCartLink && (
           <button

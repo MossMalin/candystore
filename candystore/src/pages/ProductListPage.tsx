@@ -52,7 +52,7 @@ const ProductListPage = () => {
 
   return (
     <>
-      <h1>Godis</h1>
+      <h1>Candy</h1>
 
       <Tags onTagClick={selectTaggedProducts} />
 
@@ -68,7 +68,7 @@ const ProductListPage = () => {
               <div className="product-list__item">
                 {product.stockStatus === 'outofstock' && (
                   <a href={`product?id=${product.id}`}>
-                    {product.name} är slutsåld
+                    {product.name} is out of order
                   </a>
                 )}
 

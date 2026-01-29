@@ -1,0 +1,63 @@
+@use '../breakpoints';
+@use '../colors';
+@use '../units';
+
+%soft-background {
+  padding: units.px-to-rem(10);
+  border-radius: units.px-to-rem(10);
+  background-color: colors.$color-background;
+  font-weight: 700;
+}
+
+.product-list {
+  &__container {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: units.px-to-rem(10);
+    margin: 0;
+    padding: 0;
+
+    & li {
+      position: relative;
+      border-radius: units.px-to-rem(10);
+      background-color: #fff;
+      overflow: hidden;
+
+      @include breakpoints.small {
+        width: units.px-to-rem(160);
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: units.px-to-rem(10);
+    padding: units.px-to-rem(10);
+
+    & a {
+      gap: units.px-to-rem(10);
+      text-decoration: none;
+
+      &::before {
+        @extend %soft-background;
+        border: 1px solid colors.$color-border;
+        content: 'Read more';
+        display: block;
+        font-weight: 400;
+        width: fit-content;
+        margin-bottom: units.px-to-rem(10);
+        padding: units.px-to-rem(8);
+      }
+    }
+  }
+
+  &__price {
+    @extend %soft-background;
+    position: absolute;
+    margin: units.px-to-rem(10);
+  }
+}
