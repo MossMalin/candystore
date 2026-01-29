@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 import { getProduct } from '../services/product.service';
 import type { ProductResponse } from '../types/Response.types';
 import { errorHandler } from '../utils/errorHandler';
 
 const ProductPage = () => {
   const [product, setProduct] = useState<ProductResponse>();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const Image_URL = import.meta.env.VITE_IMAGE_BASEURL;
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const url = new URL(window.location.href);
-        const id = url.searchParams.get('id');
+        const searchParams = new URLSearchParams(location.search);
+        const id = searchParams.get('id');
         const loadedData = await getProduct(Number(id));
         if (loadedData.status === 'error') {
           throw new Error('No product found');
@@ -23,7 +26,7 @@ const ProductPage = () => {
       }
     }
     fetchData();
-  }, []);
+  }, [location.search]);
 
   return (
     <>
@@ -35,9 +38,7 @@ const ProductPage = () => {
               <>
                 <button
                   key={tag.id}
-                  onClick={() =>
-                    (window.location.href = `/?tag=${tag.id.toString()}`)
-                  }
+                  onClick={() => navigate(`/?tag=${tag.id.toString()}`)}
                 >
                   {tag.name}
                 </button>{' '}

@@ -3,7 +3,8 @@ import type { Products, TaggedProducts } from '../types/Product.types';
 import useCart from '../hooks/useCart';
 import { Tags } from '../components/Tags';
 import { Counter } from '../components/Counter';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 import { errorHandler } from '../utils/errorHandler';
 
 const ProductListPage = () => {
@@ -11,37 +12,42 @@ const ProductListPage = () => {
 
   const Image_URL = import.meta.env.VITE_IMAGE_BASEURL;
 
-  const selectTaggedProducts = async (tag: string) => {
-    const url = new URL(window.location.href);
-    url.searchParams.set('tag', tag ? tag.replace('/', '') : '');
-    window.history.pushState({}, '', url.toString());
-    try {
-      if (tag.length <= 0) {
-        const getProductsData = await API.getProducts();
-        setProducts(getProductsData.data);
-      } else {
-        const response = await API.getTaggedProducts(tag);
-        const taggedProducts: TaggedProducts = response.data;
-        setProducts(taggedProducts.products);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const selectTaggedProducts = useCallback(
+    async (tag: string) => {
+      const params = new URLSearchParams(location.search);
+      params.set('tag', tag ? tag.replace('/', '') : '');
+      navigate({ search: params.toString() });
+      try {
+        if (tag.length <= 0) {
+          const getProductsData = await API.getProducts();
+          setProducts(getProductsData.data);
+        } else {
+          const response = await API.getTaggedProducts(tag);
+          const taggedProducts: TaggedProducts = response.data;
+          setProducts(taggedProducts.products);
+        }
+      } catch (e) {
+        errorHandler(e);
       }
-    } catch (e) {
-      errorHandler(e);
-    }
-  };
+    },
+    [location.search, navigate]
+  );
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const url = new URL(window.location.href);
-        const tagId = url.searchParams.get('tag');
-
+        const params = new URLSearchParams(location.search);
+        const tagId = params.get('tag');
         selectTaggedProducts(tagId ? `/${tagId}` : '');
       } catch (e) {
         errorHandler(e);
       }
     }
     fetchData();
-  }, []);
+  }, [location.search, selectTaggedProducts]);
 
   const { cart, addToCart, updateQuantity } = useCart();
 

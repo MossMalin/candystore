@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { Input } from '../components/Input';
 import useCart from '../hooks/useCart';
 import { postOrder } from '../services/order.service';
@@ -12,6 +13,7 @@ import type { CartItem } from '../types/Product.types';
 import { errorHandler } from '../utils/errorHandler';
 
 const CheckoutPage = () => {
+  const navigate = useNavigate();
   const formDataLocalStorage = localStorage.getItem('checkoutFormData');
   const formDataLocalStorageSnakeCase: CheckoutFormDataSnakeCase = JSON.parse(
     formDataLocalStorage || '{}'
@@ -80,7 +82,7 @@ const CheckoutPage = () => {
         alert(
           `Tack för din beställning! Din ordernummer är ${response.data.id}`
         );
-        window.location.href = '/';
+        navigate('/');
       } else {
         const errorDetails =
           response.data && Object.values(response.data)[0]
