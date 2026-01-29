@@ -6,6 +6,7 @@ import ProductListPage from './pages/ProductListPage';
 import NotFound from './pages/NotFound';
 import ProductPage from './pages/ProductPage';
 import CheckoutPage from './pages/CheckoutPage';
+import ConfirmationPage from './pages/ConfirmationPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<ProductListPage />} />
             <Route path="/product" element={<ProductPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/confirmation" element={<ConfirmationPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

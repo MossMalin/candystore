@@ -1,0 +1,16 @@
+@use '../colors';
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, 0);
+    width: calc(100vw - 80px);
+    max-width: 400px;
+    margin-inline: auto;
+    background-color: colors.$color-primary;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}

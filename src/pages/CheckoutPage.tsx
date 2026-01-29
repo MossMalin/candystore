@@ -11,8 +11,10 @@ import type {
 } from '../types/Order.types';
 import type { CartItem } from '../types/Product.types';
 import { errorHandler } from '../utils/errorHandler';
+import Toast from '../components/Toast';
 
 const CheckoutPage = () => {
+  const [toastMessage, setToastMessage] = useState('');
   const navigate = useNavigate();
   const formDataLocalStorage = localStorage.getItem('checkoutFormData');
   const formDataLocalStorageSnakeCase: CheckoutFormDataSnakeCase = JSON.parse(
@@ -47,7 +49,7 @@ const CheckoutPage = () => {
     e.preventDefault();
     const checkQuantity = cart.some((item) => item.quantity <= 0);
     if (checkQuantity) {
-      alert(
+      setToastMessage(
         'Någon produkt i din kundvagn är felaktig, ta bort produkter som har negativa värden eller noll.'
       );
       return;
@@ -79,21 +81,19 @@ const CheckoutPage = () => {
       if (response.status === 'success') {
         localStorage.removeItem('cart');
         localStorage.setItem('checkoutFormData', JSON.stringify(formData));
-        alert(
-          `Tack för din beställning! Din ordernummer är ${response.data.id}`
-        );
-        navigate('/');
+
+        navigate('/confirmation?orderId=' + response.data.id);
       } else {
         const errorDetails =
           response.data && Object.values(response.data)[0]
             ? (Object.values(response.data)[0] as string[]).join(', ')
             : '';
-        alert(
+        setToastMessage(
           `Ett fel uppstod vid beställningen. Vänligen försök igen. (${response.message}${errorDetails ? ', ' + errorDetails : ''})`
         );
       }
     } catch (e: unknown) {
-      errorHandler(e);
+      setToastMessage(errorHandler(e));
     }
   };
 
@@ -181,6 +181,9 @@ const CheckoutPage = () => {
           <button className="button--primary">Order</button>
         </div>
       </form>
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
+      )}{' '}
     </>
   );
 };

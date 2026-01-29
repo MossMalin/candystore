@@ -6,9 +6,11 @@ import { Counter } from '../components/Counter';
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { errorHandler } from '../utils/errorHandler';
+import Toast from '../components/Toast';
 
 const ProductListPage = () => {
   const [products, setProducts] = useState<Products[]>([]);
+  const [toastMessage, setToastMessage] = useState('');
 
   const Image_URL = import.meta.env.VITE_IMAGE_BASEURL;
 
@@ -30,7 +32,7 @@ const ProductListPage = () => {
           setProducts(taggedProducts.products);
         }
       } catch (e) {
-        errorHandler(e);
+        setToastMessage(errorHandler(e));
       }
     },
     [location.search, navigate]
@@ -43,7 +45,7 @@ const ProductListPage = () => {
         const tagId = params.get('tag');
         selectTaggedProducts(tagId ? `/${tagId}` : '');
       } catch (e) {
-        errorHandler(e);
+        setToastMessage(errorHandler(e));
       }
     }
     fetchData();
@@ -93,6 +95,9 @@ const ProductListPage = () => {
             </li>
           ))}
         </ul>
+      )}
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
       )}
     </>
   );

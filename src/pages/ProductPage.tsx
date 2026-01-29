@@ -3,9 +3,11 @@ import { useLocation, useNavigate } from 'react-router';
 import { getProduct } from '../services/product.service';
 import type { ProductResponse } from '../types/Response.types';
 import { errorHandler } from '../utils/errorHandler';
+import Toast from '../components/Toast';
 
 const ProductPage = () => {
   const [product, setProduct] = useState<ProductResponse>();
+  const [toastMessage, setToastMessage] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,7 +24,7 @@ const ProductPage = () => {
         }
         setProduct(loadedData);
       } catch (e) {
-        errorHandler(e);
+        setToastMessage(errorHandler(e));
       }
     }
     fetchData();
@@ -62,6 +64,9 @@ const ProductPage = () => {
             title={product.data.name}
           />
         </>
+      )}
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={() => setToastMessage('')} />
       )}
     </>
   );

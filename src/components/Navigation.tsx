@@ -1,9 +1,12 @@
 import logoTransparent from '../assets/images/logoTransparent.png';
 import useCart from '../hooks/useCart';
 import { Cart } from './Cart';
+import { useLocation } from 'react-router';
 
 const Navigation = () => {
-  const showCartLink = location.pathname !== '/checkout';
+  const location = useLocation();
+  const showCartLink =
+    location.pathname !== '/checkout' && location.pathname !== '/confirmation';
   const { showCart, setShowCart } = useCart();
 
   const showHideText = () => {
