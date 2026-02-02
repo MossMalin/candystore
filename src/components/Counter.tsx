@@ -19,7 +19,7 @@ export const Counter: React.FC<CounterProps> = ({
     <>
       <div className="counter">
         <button
-          aria-label={`Ta bort en ${product.name}`}
+          aria-label={`Remove one ${product.name}`}
           onClick={() =>
             updateQuantity(product.id, getCartItemQuantity(product.id) - 1)
           }
@@ -28,7 +28,7 @@ export const Counter: React.FC<CounterProps> = ({
         </button>
         {getCartItemQuantity(product.id)} av {product.stockQuantity}
         <button
-          aria-label={`Lägg till en ${product.name}`}
+          aria-label={`Add a ${product.name}`}
           onClick={() => addToCart(product)}
           disabled={product.stockQuantity <= getCartItemQuantity(product.id)}
         >

@@ -1,6 +1,6 @@
 # Candy store
 
-This is a store for training purpose. You will not get any candy if you place an order.
+This is a store for TypeScript training purpose. You will not get any candy if you place an order.
 
 ## Public application url
 
@@ -28,6 +28,6 @@ Have not created a constants file
 
 No transition implemented for example when fold out of Cart.
 
-### No unit tests
+### Missing unit tests
 
-No unit test has been created
+All unit tests has not been created
