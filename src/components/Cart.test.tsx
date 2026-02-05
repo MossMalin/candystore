@@ -13,7 +13,7 @@ const mockUseCart = {
       price: 10,
       quantity: 2,
       totalPrice: 20,
-      stockQuantity: 5,
+      stock_quantity: 5,
     },
   ],
   totalCost: 20,

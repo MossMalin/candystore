@@ -8,7 +8,7 @@ describe('Counter component', () => {
     id: 1,
     name: 'Candy',
     price: 10,
-    stockQuantity: 5,
+    stock_quantity: 5,
   };
 
   it('renders product quantity and stock', () => {

@@ -36,9 +36,15 @@ const ProductListPage = () => {
         const tagId = params.get('tag');
         if (!tagId) {
           const getProductsData = await getProducts();
+          if (getProductsData.status === 'error') {
+            throw new Error('Failed to fetch products');
+          }
           setProducts(getProductsData.data);
         } else {
           const response = await getTaggedProducts(`/${tagId}`);
+          if (response.status === 'error') {
+            throw new Error('Failed to fetch tagged products');
+          }
           const taggedProducts: TaggedProducts = response.data;
           setProducts(taggedProducts.products);
         }
@@ -77,13 +83,13 @@ const ProductListPage = () => {
                 title={product.name}
               />
               <div className="product-list__item">
-                {product.stockStatus === 'outofstock' && (
+                {product.stock_status === 'outofstock' && (
                   <a href={`product?id=${product.id}`}>
                     {product.name} is out of order
                   </a>
                 )}
 
-                {product.stockStatus === 'instock' && (
+                {product.stock_status === 'instock' && (
                   <>
                     <Counter
                       product={product}

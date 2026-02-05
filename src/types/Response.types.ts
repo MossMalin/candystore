@@ -1,34 +1,34 @@
-import type { Product, Products, TaggedProducts } from './Product.types';
-import type { KeysToSnakeCase } from './types';
+import type { Product, Products, TaggedProducts, Tag } from './Product.types';
 
-export type Response<T> = {
-  status: 'success' | 'fail' | 'error';
+type SuccessState<T> = {
+  status: 'success';
   data: T;
-  message?: string | null;
 };
+
+type ErrorState = {
+  status: 'error';
+  message: string;
+};
+
+type FailState = {
+  status: 'fail';
+  data: { [key: string]: string[] };
+  message: string;
+};
+
+export type Response<T> = SuccessState<T> | ErrorState;
 
 export type ProductsResponse = Response<Products[]>;
 
-type ProductsToSnakeCase = KeysToSnakeCase<Products>;
-
-type ProductToSnakeCase = KeysToSnakeCase<Product>;
-
 export type ProductResponse = Response<Product>;
 
-export type ProductsSnakeResponse = Response<ProductsToSnakeCase[]>;
+export type TagResponse = SuccessState<TaggedProducts> | ErrorState;
 
-export type ProductSnakeResponse = Response<ProductToSnakeCase>;
+export type TagsResponse = SuccessState<Tag[]> | ErrorState;
 
-export type TagResponse = Response<TaggedProducts>;
-
-export type TagSnakeResponse = Response<
-  Omit<TaggedProducts, 'products'> & { products: ProductsToSnakeCase[] }
->;
-
-// Create response type for order API with snake_case keys
-type OrderItems = KeysToSnakeCase<{
+type OrderItems = {
   id: number | null;
-  orderItems: [string] | null;
-}>;
+  order_items: [string] | null;
+};
 
-export type OrderResponse = Response<OrderItems>;
+export type OrderResponse = SuccessState<OrderItems> | FailState | ErrorState;

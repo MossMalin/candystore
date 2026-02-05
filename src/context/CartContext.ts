@@ -4,7 +4,7 @@ import type { CartItem, Product } from '../types/Product.types';
 interface CartContextType {
   cart: CartItem[];
   addToCart: (
-    product: Pick<Product, 'id' | 'name' | 'price' | 'stockQuantity'>
+    product: Pick<Product, 'id' | 'name' | 'price' | 'stock_quantity'>
   ) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;

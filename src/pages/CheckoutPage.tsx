@@ -4,10 +4,9 @@ import { Input } from '../components/Input';
 import useCart from '../hooks/useCart';
 import { postOrder } from '../services/order.service';
 import type {
-  OrderPayload,
+  Order,
   CartItemsPayload,
   CheckoutFormData,
-  CheckoutFormDataSnakeCase,
 } from '../types/Order.types';
 import type { CartItem } from '../types/Product.types';
 import { errorHandler } from '../utils/errorHandler';
@@ -18,29 +17,13 @@ const CheckoutPage = () => {
   const [toastMessage, setToastMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const formDataLocalStorage = localStorage.getItem('checkoutFormData');
-  const formDataLocalStorageSnakeCase: CheckoutFormDataSnakeCase = JSON.parse(
-    formDataLocalStorage || '{}'
+  const formDataLocalStorage: CheckoutFormData = JSON.parse(
+    localStorage.getItem('checkoutFormData') || '{}'
   );
-  const savedFormData: CheckoutFormData = {
-    customerFirstName: formDataLocalStorageSnakeCase.customer_first_name || '',
-    customerLastName: formDataLocalStorageSnakeCase.customer_last_name || '',
-    customerAddress: formDataLocalStorageSnakeCase.customer_address || '',
-    customerPostcode: formDataLocalStorageSnakeCase.customer_postcode || '',
-    customerCity: formDataLocalStorageSnakeCase.customer_city || '',
-    customerEmail: formDataLocalStorageSnakeCase.customer_email || '',
-    customerPhone: formDataLocalStorageSnakeCase.customer_phone || '',
-  };
 
   const { cart, totalCost } = useCart();
-  const [formData, setFormData] = useState<CheckoutFormDataSnakeCase>({
-    customer_first_name: savedFormData.customerFirstName,
-    customer_last_name: savedFormData.customerLastName,
-    customer_address: savedFormData.customerAddress,
-    customer_postcode: savedFormData.customerPostcode,
-    customer_city: savedFormData.customerCity,
-    customer_email: savedFormData.customerEmail,
-    customer_phone: savedFormData.customerPhone,
+  const [formData, setFormData] = useState<CheckoutFormData>({
+    ...formDataLocalStorage,
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -56,14 +39,8 @@ const CheckoutPage = () => {
       );
       return;
     }
-    const order: OrderPayload = {
-      customer_first_name: formData.customer_first_name,
-      customer_last_name: formData.customer_last_name,
-      customer_address: formData.customer_address,
-      customer_postcode: formData.customer_postcode,
-      customer_city: formData.customer_city,
-      customer_email: formData.customer_email,
-      customer_phone: formData.customer_phone,
+    const order: Order = {
+      ...formData,
       order_total: totalCost,
       order_items: cart
         .filter((item: CartItem) => item.quantity > 0)
@@ -88,7 +65,7 @@ const CheckoutPage = () => {
         navigate('/confirmation?orderId=' + response.data.id);
       } else {
         const errorDetails =
-          response.data && Object.values(response.data)[0]
+          response.status === 'fail'
             ? (Object.values(response.data)[0] as string[]).join(', ')
             : '';
         setToastMessage(

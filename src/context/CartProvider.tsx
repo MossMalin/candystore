@@ -30,7 +30,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   // Cart manipulation functions
   const addToCart = (
-    product: Pick<Product, 'id' | 'name' | 'price' | 'stockQuantity'>
+    product: Pick<Product, 'id' | 'name' | 'price' | 'stock_quantity'>
   ) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
@@ -53,7 +53,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
           price: product.price,
           quantity: 1,
           totalPrice: product.price,
-          stockQuantity: product.stockQuantity,
+          stock_quantity: product.stock_quantity,
         },
       ];
     });

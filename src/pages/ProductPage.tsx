@@ -38,7 +38,7 @@ const ProductPage = () => {
   return (
     <>
       <Loading isLoading={loading} />
-      {product && (
+      {product && product.status === 'success' && (
         <>
           <h1>{product.data.name}</h1>
           {product.data.tags &&

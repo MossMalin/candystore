@@ -3,13 +3,13 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  onSale: boolean;
+  on_sale: boolean;
   images: {
     thumbnail: string;
     large: string;
   };
-  stockStatus: 'instock' | 'outofstock';
-  stockQuantity: number;
+  stock_status: 'instock' | 'outofstock';
+  stock_quantity: number;
   tags: [Tag];
 }
 
@@ -27,7 +27,7 @@ export type TaggedProducts = Tag & {
 
 export type CartItem = Pick<
   Product,
-  'id' | 'name' | 'price' | 'stockQuantity'
+  'id' | 'name' | 'price' | 'stock_quantity'
 > & {
   quantity: number;
   totalPrice: number;

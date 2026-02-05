@@ -68,7 +68,7 @@ export const Cart = () => {
                         id: product.id,
                         name: product.name,
                         price: product.price,
-                        stockQuantity: product.stockQuantity,
+                        stock_quantity: product.stock_quantity,
                       }}
                       getCartItemQuantity={(productId) => {
                         const cartItem = cart.find(

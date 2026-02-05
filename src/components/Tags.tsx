@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { getTags } from '../services/product.service';
-import type { Tag } from '../types/Product.types';
 import { useLocation } from 'react-router';
 
 interface TagsProps {
@@ -15,8 +14,6 @@ export const Tags: React.FC<TagsProps> = ({ onTagClick }) => {
     queryFn: getTags,
   });
 
-  const tags: Tag[] = Array.isArray(tagsData?.data) ? tagsData?.data : [];
-
   return (
     <div className="tags">
       <button
@@ -25,8 +22,8 @@ export const Tags: React.FC<TagsProps> = ({ onTagClick }) => {
       >
         Show all
       </button>
-      {tags &&
-        tags.map((tag) => (
+      {tagsData?.status === 'success' &&
+        tagsData.data.map((tag) => (
           <button
             key={tag.id}
             onClick={() => onTagClick(`/${tag.id.toString()}`)}

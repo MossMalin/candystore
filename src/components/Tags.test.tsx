@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { describe, it, expect, vi } from 'vitest';
 
 vi.mock('@tanstack/react-query', () => ({
-  useQuery: () => ({ data: { data: mockTags } }),
+  useQuery: () => ({ data: { status: 'success', data: mockTags } }),
 }));
 
 import { Tags } from './Tags';
