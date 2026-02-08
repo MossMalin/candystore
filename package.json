@@ -11,7 +11,8 @@
     "typecheck": "tsc -b",
     "type-coverage": "type-coverage -p tsconfig.app.json --detail --at-least 99",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",
@@ -30,6 +31,7 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
